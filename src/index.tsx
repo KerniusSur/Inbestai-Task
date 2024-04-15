@@ -1,9 +1,14 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
+import { store } from "./store/configureStore";
+import setupAxiosInterceptors from "./utils/axiosInterceptors";
+import App from "./App";
 import "./index.css";
-import App from "App";
 
-const root = ReactDOM.createRoot(document.querySelector("root")!);
+const root = ReactDOM.createRoot(document.querySelector("#root")!);
+
+setupAxiosInterceptors(store);
+
 root.render(
   <StrictMode>
     <App />
