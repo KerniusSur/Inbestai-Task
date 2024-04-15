@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { alertSlice } from "store/modules/alert/slice";
-import { postcodeSlice } from "store/modules/postcode/slice";
+import { alertSlice } from "./modules/alert/slice";
+import { postcodeSlice } from "./modules/postcode/slice";
 
 export const rootReducer = combineReducers({
   alerts: alertSlice.reducer,
@@ -9,10 +9,6 @@ export const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

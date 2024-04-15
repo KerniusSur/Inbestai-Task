@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import PostCode from "models/postcode/PostCode";
 import PostCodeSlice from "models/postcode/PostCodeSlice";
 
 const initialState: PostCodeSlice = {
@@ -14,7 +15,7 @@ export const postcodeSlice = createSlice({
     },
     removePostCode: (state, action) => {
       state.postcodes = state.postcodes.filter(
-        (postcode) => postcode.id !== action.payload
+        (postcode: PostCode) => postcode.id !== action.payload
       );
     },
   },

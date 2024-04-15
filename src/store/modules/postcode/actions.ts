@@ -1,7 +1,7 @@
 import { ThunkAction, Action } from "@reduxjs/toolkit";
 import PostCode from "models/postcode/PostCode";
-import { RootState } from "store/configureStore";
-import { postcodeSlice } from "store/modules/postcode/slice";
+import { RootState } from "../../configureStore";
+import { postcodeSlice } from "./slice";
 
 const postcodeActions = postcodeSlice.actions;
 

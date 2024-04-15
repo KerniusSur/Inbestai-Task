@@ -1,7 +1,7 @@
 import { Action, ThunkAction } from "@reduxjs/toolkit";
 import Alert from "models/alert/Alert";
-import { RootState } from "store/configureStore";
-import { alertSlice } from "store/modules/alert/slice";
+import { RootState } from "../../configureStore";
+import { alertSlice } from "../alert/slice";
 
 const alertActions = alertSlice.actions;
 
