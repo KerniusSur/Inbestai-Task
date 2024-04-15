@@ -1,70 +1,105 @@
-# Getting Started with Create React App
+# Inbest Tech Homework Assessment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Contents
 
-## Available Scripts
+1. [Overview](#overview)
+2. [Setup Instructions](#setup-instructions)
+    - [Prerequisites](#prerequisites)
+    - [Run Development Server](#a-run-development-server)
+    - [Run Production Build](#b-run-production-build)
+3. [Features](#features)
+4. [Implementation Details](#implementation-details)
+    - [Technologies Used](#technologies-used)
+    - [Project Structure](#project-structure)
+5. [Other Information](#other-information)
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
+The Postcode Information Retrieval App is a basic ReactJS application designed to facilitate the submission and retrieval of information about UK postcodes. It interacts with the postcodes.io API service to fetch data such as country, longitude, latitude, and administrative district based on the user-provided postcode. Additionally, the app maintains a history of submitted postcodes, allowing users to access previous submissions easily.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Setup Instructions
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### *Prerequisites:*
 
-### `npm test`
+Follow the steps below to set up the project on your local machine:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### 1. Clone the repository
 
-### `npm run build`
+```bash
+git clone git@github.com:KerniusSur/Inbestai-Task.git
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### 2. Navigate to the project directory
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+cd Inbestai-Task
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### 3. Install dependencies
 
-### `npm run eject`
+```bash
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### *a. Run development server:*
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### 1. Start the development server
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+`npm start`
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### *b. Run production build:*
 
-## Learn More
+To build the application for production and run it, use the following commands:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### 1. Build the application
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm run build
+```
 
-### Code Splitting
+#### 2. Serve the application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+npx serve -s build
+```
 
-### Analyzing the Bundle Size
+#### Open your web browser and visit `http://localhost:3000` to access the application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Features
 
-### Making a Progressive Web App
+1. **Submit UK Postcode**: Users can input a UK postcode into the application.
+2. **Retrieve Postcode Information**: The app fetches information from the postcodes.io API using the provided postcode.
+3. **Display Information**: Details including country, longitude, latitude, and administrative district are presented to the user.
+4. **View Postcode History**: The app keeps track of submitted postcodes for reference.
+5. **Select Postcode from History**: Users can select a postcode from the history list to view its details.
+6. **Remove Postcode from History**: Users have the option to delete a postcode from the history list.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Implementation Details
 
-### Advanced Configuration
+### Technologies Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **React**: Utilized for building the user interface and managing state.
+- **Redux**: Employed for efficient state management, particularly for handling postcode history.
+- **Axios**: Used for making HTTP requests to the postcodes.io API.
+- **MUI**: Material-UI components were used for styling the application.
 
-### Deployment
+### Project Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The project follows a typical ReactJS project structure:
 
-### `npm run build` fails to minify
+- **public/**: Contains public assets like HTML files.
+- **src/**
+  - **api/**: Contains service functions for handling API requests.
+  - **assets/**: Holds static assets like images and stylesheets.
+  - **components/**: Contains React components used in the application.
+  - **pages/**: Houses the main pages of the application.
+  - **redux/**: Holds Redux related files for managing application state.
+  - **utils/**: Houses utility functions used across the application.
+  - **App.tsx**: Entry point of the application.
+  - **index.tsx**: TypeScript entry point for the React application.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Other Information
+
+- **Author**: [Kernius Survila](https://github.com/KerniusSur)
