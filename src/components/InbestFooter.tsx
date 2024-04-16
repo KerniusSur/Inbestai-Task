@@ -20,6 +20,7 @@ const InbestFooter = (props: InbestFooterProps) => {
         bottom: 0,
         border: showBottomShape ? "none" : "1px solid rgba(0, 0, 0, 0.1)",
         boxShadow: "none",
+        zIndex: 9,
       }}
     >
       {showBottomShape && (

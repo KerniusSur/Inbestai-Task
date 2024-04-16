@@ -8,7 +8,12 @@ export const rootReducer = combineReducers({
 });
 
 export const store = configureStore({
+  devTools: true,
   reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: true,
+    }),
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

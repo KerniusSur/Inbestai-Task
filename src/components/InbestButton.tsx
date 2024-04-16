@@ -5,6 +5,7 @@ interface InbestButtonProps extends ButtonProps {
   text: string;
   startIcon?: JSX.Element;
   endIcon?: JSX.Element;
+  
 }
 
 const InbestButton = (props: InbestButtonProps) => {
@@ -15,12 +16,8 @@ const InbestButton = (props: InbestButtonProps) => {
       sx={{
         display: "flex",
         alignItems: "center",
+        textTransform: "none !important",
         gap: "12px",
-        padding: !fullWidth
-          ? props.variant === "outlined"
-            ? "7px 19px"
-            : "8px 20px"
-          : "12px 24px",
       }}
       {...other}
     >

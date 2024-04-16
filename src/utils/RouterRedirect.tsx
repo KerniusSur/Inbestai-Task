@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 interface RouterRedirectProps {
   // eslint-disable-next-line no-undef
@@ -8,10 +8,9 @@ interface RouterRedirectProps {
 
 const RouterRedirect = (props: RouterRedirectProps) => {
   const { children, tag } = props;
-  const navigate = useNavigate();
 
   if (tag === "404") {
-    navigate("/404");
+    return <Navigate to="/login" />;
   }
 
   return children;

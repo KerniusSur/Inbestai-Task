@@ -5,6 +5,7 @@ interface PostCode {
   longitude?: string;
   latitude?: string;
   adminDistrict?: string;
+  createdAt?: string;
 }
 
 export default PostCode;

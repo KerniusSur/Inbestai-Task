@@ -61,3 +61,8 @@ export interface PostcodeAutocompleteResponse {
   status: number;
   result: string[];
 }
+
+export interface PostcodeErrorResponse {
+  status: number;
+  error: string;
+}

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import AlertSlice from "models/alert/AlertSlice";
 
 const initialState: AlertSlice = {
-  alerts: [],
+  alert: undefined,
 };
 
 export const alertSlice = createSlice({
@@ -10,12 +10,10 @@ export const alertSlice = createSlice({
   initialState: initialState,
   reducers: {
     addAlert: (state, action) => {
-      state.alerts.push(action.payload);
+      state.alert = action.payload.alert;
     },
-    removeAlert: (state, action) => {
-      state.alerts = state.alerts.filter(
-        (alert) => alert.id !== action.payload
-      );
+    removeAlert: (state) => {
+      state.alert = undefined;
     },
   },
 });

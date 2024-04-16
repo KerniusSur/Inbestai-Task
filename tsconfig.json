@@ -15,8 +15,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "allowImportingTsExtensions": true
   },
-  "include": ["./src/**/*"],
+  "include": ["src/**/*"],
   "extends": "./tsconfig.paths.json"
 }

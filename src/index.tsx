@@ -1,19 +1,16 @@
-import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { store } from "./store/configureStore";
-import setupAxiosInterceptors from "./utils/axiosInterceptors";
+import { Provider } from "react-redux";
+import "typeface-roboto";
 import App from "./App";
 import "./index.css";
-import 'typeface-roboto';
+import { store } from "./store/configureStore";
 
 const root = ReactDOM.createRoot(document.querySelector("#root")!);
 
-setupAxiosInterceptors(store);
-
 root.render(
-  <StrictMode>
+  <Provider store={store}>
     <App />
-  </StrictMode>
+  </Provider>
 );
 
 // TODO: Uncomment or delete

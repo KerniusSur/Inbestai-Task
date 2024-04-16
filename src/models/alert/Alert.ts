@@ -2,7 +2,7 @@ interface Alert {
   id: string;
   message: string;
   severity: "error" | "warning" | "info" | "success";
-  createdAt: Date;
+  createdAt: string;
 }
 
 export default Alert;

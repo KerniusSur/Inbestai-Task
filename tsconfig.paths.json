@@ -6,6 +6,7 @@
       "assets/*": ["./assets/*"],
       "components/*": ["./components/*"],
       "constants/*": ["./constants/*"],
+      "hooks/*": ["./hooks/*"],
       "layouts/*": ["./layouts/*"],
       "models/*": ["./models/*"],
       "pages/*": ["./pages/*"],

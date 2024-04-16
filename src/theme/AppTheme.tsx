@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material";
-import { colors, palleteColors } from "../theme/colors";
 import { CSSProperties } from "react";
+import { colors } from "../theme/colors";
 
 export const breakpoints = {
   values: {
@@ -11,35 +11,70 @@ export const breakpoints = {
     xl: 1920,
   },
 };
+
+export const palette = {
+  primary: {
+    main: "#F7DB00",
+    dark: "DEC500",
+    contrastText: "#222222",
+  },
+  error: {
+    main: "#BA1A1A",
+    dark: "#FFB4AB",
+  },
+  background: {
+    default: "#F1F1F1",
+  },
+  text: {
+    primary: "#222222",
+    secondary: "#000000",
+  },
+};
+
 const AppTheme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: "none",
-          padding: "18px 32px !important",
+          padding: "18px 32px",
           borderRadius: "15px",
+          boxShadow: "none",
         },
         outlined: {
-          border: "1px solid",
-          borderColor: "#222222",
+          border: "1px solid #222222",
           background: "transparent",
           transition: "all 0.3s",
+          color: "#222222",
           "&:hover": {
             background: colors.black,
-            color: colors.yellow,
+            color: palette.primary.main,
+            borderColor: colors.black,
           },
         },
         contained: {
           border: "1px solid",
-          background: palleteColors.primary.main,
+          background: palette.primary.main,
           transition: "all 0.3s",
           "&:hover": {
-            background: palleteColors.primary.dark,
+            background: palette.primary.dark,
             color: colors.black,
           },
         },
       },
+      variants: [
+        {
+          props: { variant: "outlined", fullWidth: false },
+          style: {
+            padding: "15px 31px",
+          },
+        },
+        {
+          props: { variant: "contained", fullWidth: false },
+          style: {
+            padding: "15px 31px",
+          },
+        },
+      ],
     },
     MuiAppBar: {
       styleOverrides: {
@@ -58,25 +93,17 @@ const AppTheme = createTheme({
         },
       },
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: "12px",
+        },
+      },
+    },
   },
   breakpoints,
-  palette: {
-    primary: {
-      main: "#F7DB00",
-      contrastText: "#222222",
-    },
-    error: {
-      main: "#BA1A1A",
-      dark: "#FFB4AB",
-    },
-    background: {
-      default: "#F1F1F1",
-    },
-    text: {
-      primary: "#222222",
-      secondary: "#",
-    },
-  },
+  palette,
+  // TODO: Add breakpoints to typography
   typography: {
     h1: {
       fontFamily: "Roboto, Sans-serif",
@@ -97,7 +124,7 @@ const AppTheme = createTheme({
       fontFamily: "Roboto, Sans-serif",
       fontSize: "7.2vw",
       lineHeight: "1.1em",
-      letterSpacing: "-4px",
+      letterSpacing: "-2px",
       fontStyle: "normal",
       fontWeight: 600,
     },
@@ -105,17 +132,16 @@ const AppTheme = createTheme({
       fontFamily: "Roboto, Sans-serif",
       fontSize: "5rem",
       lineHeight: "1.1em",
-      letterSpacing: "-4px",
+      letterSpacing: "-2px",
       fontStyle: "normal",
       fontWeight: 600,
     },
     h4: {
       fontFamily: "Roboto, Sans-serif",
-      color: "#222222",
       fontSize: "45px",
       lineHeight: "1.1em",
       fontStyle: "normal",
-      letterSpacing: "-4px",
+      letterSpacing: "-2px",
       fontWeight: 600,
     },
     h5: {
@@ -147,8 +173,12 @@ const AppTheme = createTheme({
       fontWeight: 400,
     },
     button: {
+      fontFamily: "Roboto, Sans-serif",
       fontSize: "20px",
       lineHeight: "15px",
+      fontWeight: 500,
+      fontStyle: "normal",
+      textTransform: "none",
     },
     subtitle1: {},
     subtitle2: {},
