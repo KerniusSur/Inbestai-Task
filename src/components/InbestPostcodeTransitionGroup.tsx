@@ -7,8 +7,12 @@ import {
   ListItem,
   Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+import Item from "@mui/material/Unstable_Grid2";
+import InbestCard from "./InbestCard";
 import PostCodeContent from "models/postcode/PostCodeContent";
 import { TransitionGroup } from "react-transition-group";
+import postcodes from "../store/postcodes";
 
 // TODO: Find a way to make this compnent reusable
 interface InbestPostcodeTransitionGroupProps {
@@ -53,6 +57,69 @@ const InbestPostcodeTransitionGroup = (
     </List>
   );
 };
+
+interface InbestPostcodeCardTransitionGroupProps {
+  postcodes: PostCodeContent[];
+}
+
+export const InbestPostcodeCardTransitionGroup = (
+  props: InbestPostcodeCardTransitionGroupProps
+) => {
+  const { postcodes: postCodeComponents } = props;
+  const handleDelete = (postcode: PostCodeContent) => {
+    postcodes.remove(postcode);
+  };
+
+  const handleView = (postcode: PostCodeContent) => {
+    console.log(postcode);
+  };
+
+  console.log(postCodeComponents);
+
+  return (
+    <Box
+      sx={{
+        flexGrow: 1,
+      }}
+    >
+      <TransitionGroup
+        component={TransitionGrid}
+        sx={{
+          display: "flex",
+          width: "100%",
+        }}
+      >
+        {postCodeComponents.map((postcode) => (
+          <Collapse key={postcode.id} timeout={800} component={Item}>
+            <InbestCard
+              header={postcode.postcode || ""}
+              subheader="Admin District"
+              title={postcode.adminDistrict || ""}
+              subtitle="Country"
+              description={postcode.country || ""}
+              handleDelete={() => handleDelete(postcode)}
+              handleView={() => handleView(postcode)}
+            />
+          </Collapse>
+        ))}
+      </TransitionGroup>
+    </Box>
+  );
+};
+
+const TransitionGrid = ({ children }: { children: any }) => (
+  <Grid
+    container
+    direction={"row"}
+    spacing={3}
+    columns={3}
+    wrap="wrap"
+    rowGap={2}
+    columnGap={2}
+  >
+    {children}
+  </Grid>
+);
 
 interface TransitionGroupListItemProps {
   postcode: PostCodeContent;
