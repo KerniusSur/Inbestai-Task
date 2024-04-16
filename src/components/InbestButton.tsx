@@ -17,6 +17,9 @@ const InbestButton = (props: InbestButtonProps) => {
         alignItems: "center",
         textTransform: "none !important",
         gap: "12px",
+        "&:hover": {
+          cursor: other.disabled ? "not-allowed" : "pointer",
+        },
       }}
       {...other}
     >

@@ -60,7 +60,7 @@ export class HttpClient<SecurityDataType = unknown> {
   }: ApiConfig<SecurityDataType> = {}) {
     this.instance = axios.create({
       ...axiosConfig,
-      baseURL: "https://api.postcodes.io",
+      baseURL: axiosConfig.baseURL || "https://api.postcodes.io",
     });
     this.secure = secure;
     this.format = format;
@@ -119,7 +119,7 @@ export class HttpClient<SecurityDataType = unknown> {
     }, new FormData());
   }
 
-  public request = async <T = any, _E = any>({
+  public request = async <T = any, E = any>({
     secure,
     path,
     type,
@@ -168,9 +168,6 @@ export class HttpClient<SecurityDataType = unknown> {
         data: body,
         url: path,
       })
-      .then((response) => response.data)
-      .catch(() => {
-        return null;
-      });
+      .then((response) => response.data);
   };
 }

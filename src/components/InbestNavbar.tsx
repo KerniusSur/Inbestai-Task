@@ -115,7 +115,7 @@ const InbestNavbar = (props: InbestNavbarProps) => {
               <Typography
                 variant="h5"
                 onClick={() => {
-                  navigate("/about");
+                  navigate("/non-existent-route");
                 }}
                 sx={{
                   "&:hover": {
@@ -123,7 +123,7 @@ const InbestNavbar = (props: InbestNavbarProps) => {
                   },
                 }}
               >
-                About
+                404
               </Typography>
 
               <Typography

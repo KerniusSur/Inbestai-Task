@@ -1,10 +1,10 @@
 import { Box, Typography } from "@mui/material";
-import PostCode from "models/postcode/PostCode";
+import PostCodeContent from "models/postcode/PostCodeContent";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import InbestButton from "../components/InbestButton";
 import InbestInput from "../components/InbestInput";
 import InbestPostcodeTransitionGroup from "../components/InbestPostcodeTransitionGroup";
-import { useAppSelector } from "../store/hooks";
+import { useAppSelector } from "../hooks/reduxHooks";
 import postcodes from "../store/postcodes";
 
 const HomePage = () => {
@@ -12,7 +12,7 @@ const HomePage = () => {
   const inputContainerRef = useRef<HTMLDivElement>(null);
 
   const [postcode, setPostcode] = useState<string>("");
-  const [postcodeList, setPostcodeList] = useState<PostCode[]>(
+  const [postcodeList, setPostcodeList] = useState<PostCodeContent[]>(
     postCodeState.postcodes
   );
 
@@ -29,7 +29,7 @@ const HomePage = () => {
     postcodes.lookup(postcode);
   };
 
-  const handleDelete = (postcode: PostCode) => {
+  const handleDelete = (postcode: PostCodeContent) => {
     postcodes.remove(postcode);
   };
 
@@ -42,7 +42,6 @@ const HomePage = () => {
         width: "100%",
         gap: "1rem",
         marginTop: "6rem",
-        zIndex: 100,
         marginBottom: "104px",
       }}
     >
@@ -56,7 +55,6 @@ const HomePage = () => {
           boxSizing: "border-box",
           boxShadow: "0px 0px 50px 0px rgba(0, 0, 0, 0.19)",
           borderRadius: "16px",
-          zIndex: 100,
           backgroundColor: "background.paper",
           marginBottom: "4rem",
         }}
@@ -79,6 +77,7 @@ const HomePage = () => {
           onChange={handleChange}
         />
         <InbestButton
+          disabled={postcode.length === 0}
           sx={{
             marginTop: "1rem",
             maxWidth: "200px",

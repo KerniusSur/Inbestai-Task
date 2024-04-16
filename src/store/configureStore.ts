@@ -1,10 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { alertSlice } from "./modules/alert/slice";
+import { toastSlice } from "./modules/toast/slice";
 import { postcodeSlice } from "./modules/postcode/slice";
 import LocalStorageUtils from "../utils/LocalStorageUtils";
 
 export const rootReducer = combineReducers({
-  alerts: alertSlice.reducer,
+  toasts: toastSlice.reducer,
   postcodes: postcodeSlice.reducer,
 });
 

@@ -1,4 +1,4 @@
-interface PostCode {
+interface PostCodeContent {
   id?: string;
   postcode?: string;
   country?: string;
@@ -8,4 +8,4 @@ interface PostCode {
   createdAt?: string;
 }
 
-export default PostCode;
+export default PostCodeContent;

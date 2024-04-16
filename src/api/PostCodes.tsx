@@ -53,8 +53,6 @@ export class PostCodes<
    * @response `200` `PostcodeAutocompleteResponse`
    * @response `400` `PostcodeErrorResponse`
    * @response `404` `PostcodeErrorResponse`
-   * @secure
-   * @format json
    *
    */
   autocomplete = (postcode: string, params: RequestParams = {}) =>
