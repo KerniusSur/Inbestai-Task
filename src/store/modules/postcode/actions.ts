@@ -5,14 +5,14 @@ import { RootState } from "../../configureStore";
 import { postcodeSlice } from "./slice";
 import { createApi } from "../../../api/ApiCreator";
 
-const actiions = postcodeSlice.actions;
+const actions = postcodeSlice.actions;
 
 export const addPostCode =
   (
     newPostCode: PostCodeContent
   ): ThunkAction<void, RootState, unknown, UnknownAction> =>
   async (dispatch) => {
-    dispatch(actiions.addPostCode({ postcode: newPostCode }));
+    dispatch(actions.addPostCode({ postcode: newPostCode }));
   };
 
 export const removePostCode =
@@ -20,7 +20,7 @@ export const removePostCode =
     postCodeToRemove: PostCodeContent
   ): ThunkAction<void, RootState, unknown, UnknownAction> =>
   (dispatch) => {
-    dispatch(actiions.removePostCode({ postcode: postCodeToRemove }));
+    dispatch(actions.removePostCode({ postcode: postCodeToRemove }));
   };
 
 export const lookupPostCode =
@@ -43,5 +43,5 @@ export const lookupPostCode =
       createdAt: new Date().toISOString(),
     };
 
-    dispatch(actiions.addPostCode({ postcode: postCode }));
+    dispatch(actions.addPostCode({ postcode: postCode }));
   };
