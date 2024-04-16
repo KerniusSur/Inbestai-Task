@@ -1,8 +1,8 @@
 import type {
-    AxiosInstance,
-    AxiosRequestConfig,
-    HeadersDefaults,
-    ResponseType,
+  AxiosInstance,
+  AxiosRequestConfig,
+  HeadersDefaults,
+  ResponseType,
 } from "axios";
 import axios from "axios";
 
