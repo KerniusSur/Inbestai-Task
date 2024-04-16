@@ -22,8 +22,7 @@ const PostCodeAPI: IPostCodeAPI = {
    */
   lookup: async (postcode: string): Promise<PostcodeLookupResponse> => {
     const url = `${apiUrl}/${postcode}`;
-    const response: PostcodeLookupResponse = (await axios.get(url)).data;
-    // const response: PostcodeLookupResponse = await axios.get(url);
+    const response: PostcodeLookupResponse = await axios.get(url);
     console.log(response);
     return response;
   },
@@ -34,8 +33,7 @@ const PostCodeAPI: IPostCodeAPI = {
    */
   validate: async (postcode: string): Promise<PostcodeValidateResponse> => {
     const url = `${apiUrl}/${postcode}/validate`;
-    // const response = await axios.get(url);
-    const response = (await axios.get(url)).data;
+    const response: PostcodeValidateResponse = await axios.get(url);
     console.log(response);
     return response;
   },
@@ -49,8 +47,7 @@ const PostCodeAPI: IPostCodeAPI = {
     postcode: string
   ): Promise<PostcodeAutocompleteResponse> => {
     const url = `${apiUrl}/${postcode}/autocomplete`;
-    const response: PostcodeAutocompleteResponse = (await axios.get(url)).data;
-    // const response: PostcodeAutocompleteResponse = await axios.get(url);
+    const response: PostcodeAutocompleteResponse = await axios.get(url);
     console.log(response);
     return response;
   },
