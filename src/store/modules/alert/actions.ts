@@ -1,20 +1,17 @@
-import { Action, ThunkAction } from "@reduxjs/toolkit";
 import Alert from "models/alert/Alert";
+import { Action, ThunkAction } from "@reduxjs/toolkit";
 import { RootState } from "../../configureStore";
 import { alertSlice } from "../alert/slice";
 
 const alertActions = alertSlice.actions;
 
-export const addAlert =
+const addAlert =
   (newAlert: Alert): ThunkAction<void, RootState, unknown, Action> =>
-  (dispatch) => {
-    return dispatch(alertActions.addAlert(newAlert));
+  (dispatch) =>
+    dispatch(alertActions.addAlert(newAlert));
+const removeAlert =
+  (): ThunkAction<void, RootState, unknown, Action> => (dispatch) => {
+    dispatch(alertActions.removeAlert({ alert: undefined }));
   };
 
-export const removeAlert =
-  (alertToRemove: Alert): ThunkAction<void, RootState, unknown, Action> =>
-  (dispatch) => {
-    dispatch(alertActions.removeAlert(alertToRemove));
-  };
-
-export default alertActions;
+export { addAlert, removeAlert };

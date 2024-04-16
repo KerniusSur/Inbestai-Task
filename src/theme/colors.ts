@@ -9,19 +9,6 @@ export const colors: CustomColor = {
   yellow: "#F7DB00",
 };
 
-//TODO: add type
-export const palleteColors = {
-  primary: {
-    main: "#F7DB00",
-    dark: "DEC500",
-    contrastText: "#222222",
-  },
-  background: {
-    main: "#F1F1F1",
-    contrastText: colors.black,
-  },
-};
-
 export const elevation = {
   elevation1: "0px 0px 10px 0px rgba(0,0,0,0.5)",
 };

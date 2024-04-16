@@ -11,11 +11,11 @@ export const postcodeSlice = createSlice({
   initialState: initialState,
   reducers: {
     addPostCode: (state, action) => {
-      state.postcodes.push(action.payload);
+      state.postcodes.unshift(action.payload.postcode);
     },
     removePostCode: (state, action) => {
       state.postcodes = state.postcodes.filter(
-        (postcode: PostCode) => postcode.id !== action.payload
+        (postcode: PostCode) => postcode.id !== action.payload.postcode.id
       );
     },
   },

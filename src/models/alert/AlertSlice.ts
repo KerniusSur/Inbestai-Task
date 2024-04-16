@@ -1,7 +1,7 @@
 import Alert from "./Alert";
 
 interface AlertSlice {
-  alerts: Alert[];
+  alert?: Alert;
 }
 
 export default AlertSlice;

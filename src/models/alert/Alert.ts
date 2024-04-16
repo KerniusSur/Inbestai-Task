@@ -1,8 +1,9 @@
 interface Alert {
   id: string;
+  open: boolean;
   message: string;
   severity: "error" | "warning" | "info" | "success";
-  createdAt: Date;
+  createdAt: string;
 }
 
 export default Alert;
