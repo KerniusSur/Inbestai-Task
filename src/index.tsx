@@ -4,6 +4,7 @@ import { store } from "./store/configureStore";
 import setupAxiosInterceptors from "./utils/axiosInterceptors";
 import App from "./App";
 import "./index.css";
+import 'typeface-roboto';
 
 const root = ReactDOM.createRoot(document.querySelector("#root")!);
 
