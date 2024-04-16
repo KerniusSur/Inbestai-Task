@@ -3,7 +3,9 @@ import PostCodeContent from "models/postcode/PostCodeContent";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import InbestButton from "../components/InbestButton";
 import InbestInput from "../components/InbestInput";
-import InbestPostcodeTransitionGroup from "../components/InbestPostcodeTransitionGroup";
+import InbestPostcodeTransitionGroup, {
+  InbestPostcodeCardTransitionGroup,
+} from "../components/InbestPostcodeTransitionGroup";
 import { useAppSelector } from "../hooks/reduxHooks";
 import postcodes from "../store/postcodes";
 
@@ -91,10 +93,11 @@ const HomePage = () => {
         />
       </Box>
 
-      <InbestPostcodeTransitionGroup
+      {/* <InbestPostcodeTransitionGroup
         postcodes={postcodeList}
         handleDelete={handleDelete}
-      />
+      /> */}
+      <InbestPostcodeCardTransitionGroup postcodes={postcodeList} />
     </Box>
   );
 };
