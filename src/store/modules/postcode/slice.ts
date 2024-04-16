@@ -15,7 +15,8 @@ export const postcodeSlice = createSlice({
     },
     removePostCode: (state, action) => {
       state.postcodes = state.postcodes.filter(
-        (postcode: PostCodeContent) => postcode.id !== action.payload.postcode.id
+        (postcode: PostCodeContent) =>
+          postcode.id !== action.payload.postcode.id
       );
     },
   },
