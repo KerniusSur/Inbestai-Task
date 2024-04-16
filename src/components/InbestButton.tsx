@@ -5,7 +5,6 @@ interface InbestButtonProps extends ButtonProps {
   text: string;
   startIcon?: JSX.Element;
   endIcon?: JSX.Element;
-  
 }
 
 const InbestButton = (props: InbestButtonProps) => {

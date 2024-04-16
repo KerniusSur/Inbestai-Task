@@ -50,11 +50,17 @@ const App = () => {
                     }
                   />
                 ))}
-                {(alertState.alert || alertComponent )&& (
+                {(alertState.alert || alertComponent) && (
                   <InbestSnackbar
                     open={true}
-                    severity={alertComponent?.severity ?? alertState.alert?.severity ?? "info"}
-                    message={alertComponent?.message ?? alertState.alert?.message ?? ""}
+                    severity={
+                      alertComponent?.severity ??
+                      alertState.alert?.severity ??
+                      "info"
+                    }
+                    message={
+                      alertComponent?.message ?? alertState.alert?.message ?? ""
+                    }
                   />
                 )}
               </Route>

@@ -29,19 +29,19 @@ const InbestSnackbar = (props: InbestSnackbarProps) => {
 
   return (
     <div>
-    <Snackbar
-      open={isOpen}
-      autoHideDuration={6000}
-      // TransitionComponent={(props: SlideProps) => <Slide {...props} direction="left" />}
-      // TransitionComponent={SlideTransition}
-      onClose={handleClose}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "left",
-      }}
-message={message}
-    >
-      {/* <Alert
+      <Snackbar
+        open={isOpen}
+        autoHideDuration={6000}
+        // TransitionComponent={(props: SlideProps) => <Slide {...props} direction="left" />}
+        // TransitionComponent={SlideTransition}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        message={message}
+      >
+        {/* <Alert
         onClose={handleClose}
         variant="filled"
         severity={severity}
@@ -49,8 +49,7 @@ message={message}
       >
         <Typography variant="body2">{message}</Typography>
       </Alert> */}
-
-    </Snackbar>
+      </Snackbar>
     </div>
   );
 };
