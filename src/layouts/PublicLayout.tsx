@@ -44,6 +44,8 @@ export const OutsideContainer = styled(Box)(() => {
     flexDirection: "column",
     height: "100%",
     backgroundColor: "#fff",
+    overflow: "auto",
+    marginBottom: "56px",
   };
 });
 

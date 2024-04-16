@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { alertSlice } from "./modules/alert/slice";
 import { postcodeSlice } from "./modules/postcode/slice";
+import LocalStorageUtils from "../utils/LocalStorageUtils";
 
 export const rootReducer = combineReducers({
   alerts: alertSlice.reducer,
@@ -14,6 +15,8 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: true,
     }),
+
+  preloadedState: LocalStorageUtils.loadState(),
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

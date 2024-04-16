@@ -7,12 +7,12 @@ import alerts from "../store/alerts";
 const notifyError = (message: string) => {
   const newAlert: Alert = {
     id: uuidv4(),
+    open: true,
     message,
     severity: "error",
     createdAt: new Date().toISOString(),
   };
   alerts.addAlert(newAlert);
-  console.log("ApiCreator: ", newAlert);
 };
 
 export const createApi = (): any => {

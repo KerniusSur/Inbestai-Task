@@ -1,22 +1,18 @@
+import { CloseOutlined } from "@mui/icons-material";
 import {
   Alert,
+  IconButton,
   Slide,
   SlideProps,
   Snackbar,
-  SnackbarProps,
   Typography,
 } from "@mui/material";
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent } from "react";
 import alerts from "../store/alerts";
+import { useAppSelector } from "../store/hooks";
 
-interface InbestSnackbarProps extends SnackbarProps {
-  open: boolean;
-  severity: "success" | "error" | "warning" | "info";
-}
-
-const InbestSnackbar = (props: InbestSnackbarProps) => {
-  const { open, severity, message, ...other } = props;
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+const InbestSnackbar = () => {
+  const alert = useAppSelector((state) => state.alerts);
 
   const handleClose = (event?: SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
@@ -24,33 +20,39 @@ const InbestSnackbar = (props: InbestSnackbarProps) => {
     }
 
     alerts.removeAlert();
-    setIsOpen(false);
   };
 
   return (
-    <div>
-      <Snackbar
-        open={isOpen}
-        autoHideDuration={6000}
-        // TransitionComponent={(props: SlideProps) => <Slide {...props} direction="left" />}
-        // TransitionComponent={SlideTransition}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-        message={message}
-      >
-        {/* <Alert
+    <Snackbar
+      open={alert.alert?.open}
+      autoHideDuration={6000}
+      TransitionComponent={SlideTransition}
+      onClose={handleClose}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "left",
+      }}
+      aria-describedby="client-snackbar"
+    >
+      <Alert
         onClose={handleClose}
         variant="filled"
-        severity={severity}
+        severity={alert.alert?.severity}
         sx={{ width: "100%" }}
+        action={
+          <IconButton
+            key="close"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseOutlined />
+          </IconButton>
+        }
       >
-        <Typography variant="body2">{message}</Typography>
-      </Alert> */}
-      </Snackbar>
-    </div>
+        <Typography variant="body2">{alert.alert?.message}</Typography>
+      </Alert>
+    </Snackbar>
   );
 };
 

@@ -11,7 +11,7 @@ const addAlert =
     dispatch(alertActions.addAlert(newAlert));
 const removeAlert =
   (): ThunkAction<void, RootState, unknown, Action> => (dispatch) => {
-    dispatch(alertActions.removeAlert());
+    dispatch(alertActions.removeAlert({ alert: undefined }));
   };
 
 export { addAlert, removeAlert };

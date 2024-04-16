@@ -1,13 +1,10 @@
 import type {
-  AxiosInstance,
-  AxiosRequestConfig,
-  HeadersDefaults,
-  ResponseType,
+    AxiosInstance,
+    AxiosRequestConfig,
+    HeadersDefaults,
+    ResponseType,
 } from "axios";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
-import alerts from "../store/alerts";
-import Alert from "models/alert/Alert";
 
 export type QueryParamsType = Record<string | number, any>;
 
@@ -172,16 +169,7 @@ export class HttpClient<SecurityDataType = unknown> {
         url: path,
       })
       .then((response) => response.data)
-      .catch((error) => {
-        const newAlert: Alert = {
-          id: uuidv4(),
-          message: error.message,
-          severity: "error",
-          createdAt: new Date().toISOString(),
-        };
-
-        alerts.addAlert(newAlert);
-        console.log("http-client: ", newAlert);
+      .catch(() => {
         return null;
       });
   };

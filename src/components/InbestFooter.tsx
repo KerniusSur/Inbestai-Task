@@ -14,7 +14,6 @@ const InbestFooter = (props: InbestFooterProps) => {
       variant={!showBottomShape ? "outlined" : "elevation"}
       component="footer"
       sx={{
-        marginTop: "calc(5% + 2rem)",
         width: "100%",
         position: "fixed",
         bottom: 0,

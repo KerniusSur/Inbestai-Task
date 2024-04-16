@@ -1,6 +1,10 @@
 import PostCode from "models/postcode/PostCode";
 import { store } from "./configureStore";
-import { addPostCode, removePostCode } from "./modules/postcode/actions";
+import {
+  addPostCode,
+  lookupPostCode,
+  removePostCode,
+} from "./modules/postcode/actions";
 
 const postcodes = {
   add: (newPostcode: PostCode): void => {
@@ -8,6 +12,9 @@ const postcodes = {
   },
   remove: (postcodeToRemove: PostCode): void => {
     store.dispatch(removePostCode(postcodeToRemove));
+  },
+  lookup: async (newPostcode: string) => {
+    store.dispatch(lookupPostCode(newPostcode));
   },
 };
 

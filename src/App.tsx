@@ -1,41 +1,28 @@
 import { ThemeProvider } from "@mui/material";
-import { StrictMode, useEffect, useState } from "react";
+import { StrictMode } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import InbestSnackbar from "./components/InbestSnackbar";
 import routeGroups from "./constants/routeGroups";
 import routes from "./constants/routes";
 import useDebounce from "./hooks/useDebounce";
 import { store } from "./store/configureStore";
-import { useAppSelector } from "./store/hooks";
 import AppTheme from "./theme/AppTheme";
-
 import RouterRedirect from "./utils/RouterRedirect";
-import { savePostCodes } from "./utils/localStorageUtil";
-import Alert from "models/alert/Alert";
+import LocalStorageUtils from "./utils/LocalStorageUtils";
+import InbestSnackbar from "./components/InbestSnackbar";
 
 const App = () => {
-  const alertState = useAppSelector((state) => state.alerts);
-  const { postcodes } = useAppSelector((state) => state.postcodes);
-  const [alertComponent, setAlertComponent] = useState<Alert | undefined>(
-    alertState.alert
-  );
-
   store.subscribe(
     useDebounce(() => {
-      savePostCodes(postcodes);
+      LocalStorageUtils.saveState(store.getState());
     }, 500)
   );
-
-  useEffect(() => {
-    console.log("alert: ", alertState.alert);
-    setAlertComponent(alertState.alert);
-  }, [alertState.alert]);
 
   return (
     <StrictMode>
       <BrowserRouter>
         <ThemeProvider theme={AppTheme}>
+          <InbestSnackbar />
           <Routes>
             {routeGroups.map((group) => (
               <Route key={group.path} path={group.path} element={group.layout}>
@@ -50,19 +37,6 @@ const App = () => {
                     }
                   />
                 ))}
-                {(alertState.alert || alertComponent) && (
-                  <InbestSnackbar
-                    open={true}
-                    severity={
-                      alertComponent?.severity ??
-                      alertState.alert?.severity ??
-                      "info"
-                    }
-                    message={
-                      alertComponent?.message ?? alertState.alert?.message ?? ""
-                    }
-                  />
-                )}
               </Route>
             ))}
           </Routes>

@@ -12,8 +12,8 @@ export const alertSlice = createSlice({
     addAlert: (state, action) => {
       state.alert = action.payload.alert;
     },
-    removeAlert: (state) => {
-      state.alert = undefined;
+    removeAlert: (state, action) => {
+      state.alert = action.payload.alert;
     },
   },
 });
