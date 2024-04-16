@@ -1,14 +1,15 @@
 import { ThunkAction, UnknownAction } from "@reduxjs/toolkit";
 import { PostCodes } from "../../../api/PostCodes";
-import PostCode from "../../../models/postcode/PostCode";
+import PostCodeContent from "../../../models/postcode/PostCodeContent";
 import { RootState } from "../../configureStore";
 import { postcodeSlice } from "./slice";
+import { createApi } from "../../../api/ApiCreator";
 
 const actiions = postcodeSlice.actions;
 
 export const addPostCode =
   (
-    newPostCode: PostCode
+    newPostCode: PostCodeContent
   ): ThunkAction<void, RootState, unknown, UnknownAction> =>
   async (dispatch) => {
     dispatch(actiions.addPostCode({ postcode: newPostCode }));
@@ -16,7 +17,7 @@ export const addPostCode =
 
 export const removePostCode =
   (
-    postCodeToRemove: PostCode
+    postCodeToRemove: PostCodeContent
   ): ThunkAction<void, RootState, unknown, UnknownAction> =>
   (dispatch) => {
     dispatch(actiions.removePostCode({ postcode: postCodeToRemove }));
@@ -25,14 +26,14 @@ export const removePostCode =
 export const lookupPostCode =
   (newPostCode: string): ThunkAction<void, RootState, unknown, UnknownAction> =>
   async (dispatch) => {
-    const postCodeApi = new PostCodes() as PostCodes;
+    const postCodeApi = createApi() as PostCodes;
     const response = await postCodeApi.lookup(newPostCode);
 
     if (response === null) {
       return false;
     }
 
-    const postCode: PostCode = {
+    const postCode: PostCodeContent = {
       id: response.result.postcode,
       postcode: response.result.postcode,
       country: response.result.country,

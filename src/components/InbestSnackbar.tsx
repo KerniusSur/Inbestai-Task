@@ -8,37 +8,40 @@ import {
   Typography,
 } from "@mui/material";
 import { SyntheticEvent } from "react";
-import alerts from "../store/alerts";
-import { useAppSelector } from "../store/hooks";
+import { useAppSelector } from "../hooks/reduxHooks";
+import toasts from "../store/toast";
 
 const InbestSnackbar = () => {
-  const alert = useAppSelector((state) => state.alerts);
+  const toast = useAppSelector((state) => state.toasts.toast);
+  const isToastOpen = useAppSelector((state) => state.toasts.toast?.open);
 
   const handleClose = (event?: SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
 
-    alerts.removeAlert();
+    if (!toast) {
+      return;
+    }
+
+    toasts.closeToast(toast);
   };
 
   return (
     <Snackbar
-      open={alert.alert?.open}
-      autoHideDuration={6000}
+      open={isToastOpen}
+      autoHideDuration={5000}
       TransitionComponent={SlideTransition}
       onClose={handleClose}
       anchorOrigin={{
         vertical: "top",
         horizontal: "left",
       }}
-      aria-describedby="client-snackbar"
     >
       <Alert
-        onClose={handleClose}
         variant="filled"
-        severity={alert.alert?.severity}
-        sx={{ width: "100%" }}
+        severity={toast?.severity}
+        sx={{ width: "100%", display: "flex", alignItems: "center" }}
         action={
           <IconButton
             key="close"
@@ -50,14 +53,14 @@ const InbestSnackbar = () => {
           </IconButton>
         }
       >
-        <Typography variant="body2">{alert.alert?.message}</Typography>
+        <Typography variant="body2">{toast?.message}</Typography>
       </Alert>
     </Snackbar>
   );
 };
 
 const SlideTransition = (props: SlideProps) => {
-  return <Slide {...props} direction="left" />;
+  return <Slide {...props} direction="right" />;
 };
 
 export default InbestSnackbar;

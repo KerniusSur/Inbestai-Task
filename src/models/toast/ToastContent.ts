@@ -1,9 +1,8 @@
-interface Alert {
-  id: string;
+interface ToastContent {
   open: boolean;
   message: string;
   severity: "error" | "warning" | "info" | "success";
   createdAt: string;
 }
 
-export default Alert;
+export default ToastContent;

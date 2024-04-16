@@ -7,13 +7,14 @@ import {
   ListItem,
   Typography,
 } from "@mui/material";
-import PostCode from "models/postcode/PostCode";
+import PostCodeContent from "models/postcode/PostCodeContent";
 import { TransitionGroup } from "react-transition-group";
 
+// TODO: Find a way to make this compnent reusable
 interface InbestPostcodeTransitionGroupProps {
-  postcodes: PostCode[];
+  postcodes: PostCodeContent[];
 
-  handleDelete: (postcode: PostCode) => void;
+  handleDelete: (postcode: PostCodeContent) => void;
 }
 
 const InbestPostcodeTransitionGroup = (
@@ -54,8 +55,8 @@ const InbestPostcodeTransitionGroup = (
 };
 
 interface TransitionGroupListItemProps {
-  postcode: PostCode;
-  handleDelete: (postcode: PostCode) => void;
+  postcode: PostCodeContent;
+  handleDelete: (postcode: PostCodeContent) => void;
 }
 
 const TransitionGroupListItem = ({
