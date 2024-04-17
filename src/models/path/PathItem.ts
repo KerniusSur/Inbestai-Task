@@ -8,6 +8,7 @@ interface PathItem {
   menuLabel?: string;
   menuIcon?: ReactNode;
   activeMenuIcon?: ReactNode;
+  showReactiveWidgets?: boolean;
 }
 
 export default PathItem;
