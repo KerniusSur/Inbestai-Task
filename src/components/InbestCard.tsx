@@ -11,7 +11,6 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import CardMediaPlaceholder from "../assets/card-media-placeholder.png";
 import InbestButton from "./InbestButton";
 
 interface InbestCardProps {
@@ -76,7 +75,7 @@ const InbestCard = (props: InbestCardProps) => {
           <CardMedia
             width={188}
             component="img"
-            image={image ?? CardMediaPlaceholder}
+            image={image}
             alt="card-media"
           />
         )}

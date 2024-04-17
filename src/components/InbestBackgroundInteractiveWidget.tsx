@@ -14,7 +14,7 @@ const InbestBackgroundInteractiveWidget = (
 
   useEffect(() => {
     const root = document.getElementById("root") as HTMLElement;
-    window.addEventListener("mousemove", (e) => {
+    const handleSetTranslateVariables = (e: MouseEvent) => {
       const x = e.clientX;
       const y = e.clientY;
       const width = window.innerWidth;
@@ -28,10 +28,12 @@ const InbestBackgroundInteractiveWidget = (
         "--translateY",
         -((y - height / 2) / height) * 30 + "px"
       );
-    });
+    };
+
+    window.addEventListener("mousemove", handleSetTranslateVariables);
 
     return () => {
-      window.removeEventListener("mousemove", () => {});
+      window.removeEventListener("mousemove", handleSetTranslateVariables);
     };
   }, []);
 
