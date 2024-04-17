@@ -89,6 +89,7 @@ AppTheme = createTheme(AppTheme, {
           boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.5)",
           height: "80px",
           minHeight: "none",
+          with: "100%",
         },
       },
     },
@@ -115,7 +116,6 @@ AppTheme = createTheme(AppTheme, {
       },
     },
   },
-  // TODO: Add breakpoints to typography
   typography: {
     h1: {
       fontFamily: "Roboto, Sans-serif",
@@ -207,8 +207,6 @@ AppTheme = createTheme(AppTheme, {
       fontStyle: "normal",
       textTransform: "none",
     },
-    subtitle1: {},
-    subtitle2: {},
   },
 });
 

@@ -2,13 +2,18 @@ html,
 body {
   font-family: "Roboto", sans-serif;
   height: 100%;
-  overflow-y: auto;
+  margin: 0;
+  padding: 0;
 }
 
 #root {
+  --translateX: 0px;
+  --translateY: 0px;
+
   height: 100%;
-  overflow-y: auto;
 }
+
+
 
 /* Hide the webpack-dev-server client error overlay */
 iframe#webpack-dev-server-client-overlay {

@@ -10,7 +10,7 @@ const RouterRedirect = (props: RouterRedirectProps) => {
   const { children, tag } = props;
 
   if (tag === "404") {
-    return <Navigate to="/login" />;
+    return <Navigate to="/404" />;
   }
 
   return children;
