@@ -1,10 +1,10 @@
-/* eslint-disable no-undef */
 import { Button, ButtonProps, Typography } from "@mui/material";
+import { ReactNode } from "react";
 
 interface InbestButtonProps extends ButtonProps {
   text: string;
-  startIcon?: JSX.Element;
-  endIcon?: JSX.Element;
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
 }
 
 const InbestButton = (props: InbestButtonProps) => {

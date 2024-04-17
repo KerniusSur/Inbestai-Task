@@ -1,11 +1,13 @@
+import { ReactNode } from "react";
+
 /* eslint-disable no-undef */
 interface PathItem {
   path: string;
-  element: JSX.Element | any;
+  element: ReactNode;
   tag?: string;
   menuLabel?: string;
-  menuIcon?: JSX.Element;
-  activeMenuIcon?: JSX.Element;
+  menuIcon?: ReactNode;
+  activeMenuIcon?: ReactNode;
 }
 
 export default PathItem;

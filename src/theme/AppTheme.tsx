@@ -23,7 +23,7 @@ export const palette = {
     dark: "#FFB4AB",
   },
   background: {
-    default: "#F1F1F1",
+    default: "#FFFFFF",
   },
   text: {
     primary: "#222222",

@@ -1,8 +1,8 @@
+import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 
 interface RouterRedirectProps {
-  // eslint-disable-next-line no-undef
-  children: JSX.Element;
+  children: ReactNode;
   tag?: string;
 }
 
