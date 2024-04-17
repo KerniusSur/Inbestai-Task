@@ -1,18 +1,15 @@
-import { Box, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import PostCodeContent from "models/postcode/PostCodeContent";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import InbestBackgroundInteractiveWidget from "../components/InbestBackgroundInteractiveWidget";
 import InbestButton from "../components/InbestButton";
 import InbestInput from "../components/InbestInput";
-import InbestPostcodeTransitionGroup, {
-  InbestPostcodeCardTransitionGroup,
-} from "../components/InbestPostcodeTransitionGroup";
+import { InbestPostcodeCardTransitionGroup } from "../components/InbestPostcodeTransitionGroup";
 import { useAppSelector } from "../hooks/reduxHooks";
 import postcodes from "../store/postcodes";
 
 const HomePage = () => {
   const postCodeState = useAppSelector((state) => state.postcodes);
-  const inputContainerRef = useRef<HTMLDivElement>(null);
-
   const [postcode, setPostcode] = useState<string>("");
   const [postcodeList, setPostcodeList] = useState<PostCodeContent[]>(
     postCodeState.postcodes
@@ -31,76 +28,77 @@ const HomePage = () => {
     postcodes.lookup(postcode);
   };
 
-  const handleDelete = (postcode: PostCodeContent) => {
-    postcodes.remove(postcode);
-  };
-
   return (
-    <Box
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: "100%",
-        gap: "1rem",
-        marginTop: "6rem",
-        marginBottom: "104px",
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-end",
-          width: "100%",
-          padding: "1.5rem 3rem",
-          boxSizing: "border-box",
-          boxShadow: "0px 0px 50px 0px rgba(0, 0, 0, 0.19)",
-          borderRadius: "16px",
-          backgroundColor: "background.paper",
-          marginBottom: "4rem",
-          maxWidth: "1400px",
-        }}
-        ref={inputContainerRef}
-      >
-        <Typography
+    <>
+      <HomePageContainer>
+        <HomePageSearchContainer
           sx={{
-            alignSelf: "flex-start",
-            paddingBottom: "1rem",
+            flex: postcodeList.length > 0 ? 1 : 2,
+            transition: "flex .4s",
           }}
-          variant="h4"
         >
-          Search UK Postcodes
-        </Typography>
-        <InbestInput
-          value={postcode}
-          name="firstName"
-          fullWidth
-          placeholder="Enter a postcode..."
-          onChange={handleChange}
-        />
-        <InbestButton
-          disabled={postcode.length === 0}
-          sx={{
-            marginTop: "1rem",
-            maxWidth: "200px",
-          }}
-          fullWidth={false}
-          variant="outlined"
-          text="Search"
-          onClick={() => {
-            handleSearch();
-          }}
-        />
-      </Box>
-
-      {/* <InbestPostcodeTransitionGroup
-        postcodes={postcodeList}
-        handleDelete={handleDelete}
-      /> */}
-      <InbestPostcodeCardTransitionGroup postcodes={postcodeList} />
-    </Box>
+          <Typography
+            sx={{
+              alignSelf: "flex-start",
+              paddingBottom: "1rem",
+            }}
+            variant="h4"
+          >
+            Search UK Postcodes
+          </Typography>
+          <InbestInput
+            value={postcode}
+            name="firstName"
+            fullWidth
+            placeholder="Enter a postcode..."
+            onChange={handleChange}
+            onEnterKeyPress={handleSearch}
+          />
+          <InbestButton
+            fullWidth
+            disabled={postcode.length === 0}
+            sx={{
+              marginTop: "auto",
+            }}
+            variant="outlined"
+            text="Search"
+            onClick={() => {
+              handleSearch();
+            }}
+          />
+        </HomePageSearchContainer>
+        <InbestPostcodeCardTransitionGroup postcodes={postcodeList} />
+      </HomePageContainer>
+      <InbestBackgroundInteractiveWidget />
+    </>
   );
 };
+
+export const HomePageContainer = styled(Box)(({ theme }) => ({
+  display: "flex",
+  boxSizing: "border-box",
+  maxWidth: "1600px",
+  justifyContent: "space-between",
+  width: "100%",
+  gap: "4rem",
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+    gap: "2rem",
+  },
+}));
+
+export const HomePageSearchContainer = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  gap: "2rem",
+  width: "100%",
+  boxShadow: "4px 10px 10px 2px rgba(0, 0, 0, 0.1)",
+  border: "1px solid rgba(0, 0, 0, 0.15)",
+  borderRadius: "1rem",
+  padding: "2rem",
+  boxSizing: "border-box",
+  backgroundColor: "white",
+  height: "fit-content !important",
+});
 
 export default HomePage;
