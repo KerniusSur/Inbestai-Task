@@ -1,37 +1,42 @@
 import { createTheme } from "@mui/material";
 import { CSSProperties } from "react";
-import { colors } from "../theme/colors";
 
-export const breakpoints = {
-  values: {
-    xs: 0,
-    sm: 600,
-    md: 768,
-    lg: 1280,
-    xl: 1920,
+let AppTheme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 300,
+      sm: 600,
+      md: 768,
+      lg: 1280,
+      xl: 1920,
+    },
   },
-};
+  palette: {
+    primary: {
+      main: "#F7DB00",
+      dark: "DEC500",
+      contrastText: "#222222",
+    },
+    secondary: {
+      main: "#222222",
+      dark: "#000000",
+      contrastText: "#F7DB00",
+    },
+    error: {
+      main: "#BA1A1A",
+      dark: "#FFB4AB",
+    },
+    background: {
+      default: "#FFFFFF",
+    },
+    text: {
+      primary: "#222222",
+      secondary: "#000000",
+    },
+  },
+});
 
-export const palette = {
-  primary: {
-    main: "#F7DB00",
-    dark: "DEC500",
-    contrastText: "#222222",
-  },
-  error: {
-    main: "#BA1A1A",
-    dark: "#FFB4AB",
-  },
-  background: {
-    default: "#FFFFFF",
-  },
-  text: {
-    primary: "#222222",
-    secondary: "#000000",
-  },
-};
-
-const AppTheme = createTheme({
+AppTheme = createTheme(AppTheme, {
   components: {
     MuiButton: {
       styleOverrides: {
@@ -42,22 +47,24 @@ const AppTheme = createTheme({
         },
         outlined: {
           border: "1px solid #222222",
-          background: "transparent",
+          backgroundColor: "transparent",
           transition: "all 0.3s",
-          color: "#222222",
+          color: AppTheme.palette.secondary.main,
           "&:hover": {
-            background: colors.black,
-            color: palette.primary.main,
-            borderColor: colors.black,
+            backgroundColor: AppTheme.palette.secondary.main,
+            color: AppTheme.palette.primary.main,
+            borderColor: AppTheme.palette.primary.main,
           },
         },
         contained: {
           border: "1px solid",
-          background: palette.primary.main,
           transition: "all 0.3s",
+          backgroundColor: AppTheme.palette.secondary.main,
+          color: "white",
           "&:hover": {
-            background: palette.primary.dark,
-            color: colors.black,
+            backgroundColor: AppTheme.palette.secondary.dark,
+            color: AppTheme.palette.secondary.contrastText,
+            borderColor: "transparent",
           },
         },
       },
@@ -100,9 +107,14 @@ const AppTheme = createTheme({
         },
       },
     },
+    MuiCardHeader: {
+      styleOverrides: {
+        action: {
+          alignSelf: "center",
+        },
+      },
+    },
   },
-  breakpoints,
-  palette,
   // TODO: Add breakpoints to typography
   typography: {
     h1: {
@@ -110,13 +122,13 @@ const AppTheme = createTheme({
       fontSize: "240px",
       fontWeight: 700,
       lineHeight: 1,
-      [`@media screen and (max-width: ${breakpoints.values.lg}px)`]: {
+      [AppTheme.breakpoints.down("lg")]: {
         fontSize: "200px",
       },
-      [`@media screen and (max-width: ${breakpoints.values.md}px)`]: {
+      [AppTheme.breakpoints.down("md")]: {
         fontSize: "174px",
       },
-      [`@media screen and (max-width: ${breakpoints.values.sm}px)`]: {
+      [AppTheme.breakpoints.down("sm")]: {
         fontSize: "120px",
       },
     },
@@ -135,6 +147,15 @@ const AppTheme = createTheme({
       letterSpacing: "-2px",
       fontStyle: "normal",
       fontWeight: 600,
+      [AppTheme.breakpoints.down("md")]: {
+        fontSize: "4rem",
+      },
+      [AppTheme.breakpoints.down("sm")]: {
+        fontSize: "3rem",
+      },
+      [AppTheme.breakpoints.down("xs")]: {
+        fontSize: "2rem",
+      },
     },
     h4: {
       fontFamily: "Roboto, Sans-serif",
@@ -143,6 +164,12 @@ const AppTheme = createTheme({
       fontStyle: "normal",
       letterSpacing: "-2px",
       fontWeight: 600,
+      [AppTheme.breakpoints.down("md")]: {
+        fontSize: "36px",
+      },
+      [AppTheme.breakpoints.down("sm")]: {
+        fontSize: "32px",
+      },
     },
     h5: {
       fontFamily: "Roboto, Sans-serif",
