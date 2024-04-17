@@ -1,134 +1,162 @@
-import { MoreVert } from "@mui/icons-material";
+import { ExpandLessRounded, ExpandMoreRounded } from "@mui/icons-material";
 import {
   Card,
   CardActions,
   CardContent,
   CardHeader,
   CardMedia,
+  Collapse,
   IconButton,
   styled,
   Typography,
+  useTheme
 } from "@mui/material";
 import CardMediaPlaceholder from "../assets/card-media-placeholder.png";
 import InbestButton from "./InbestButton";
-import { palette } from "../theme/AppTheme";
 
 interface InbestCardProps {
   header: string;
   subheader?: string;
-  handleDelete?: () => void;
-  handleView?: () => void;
   title: string;
   subtitle?: string;
   description?: string;
   image?: string;
+  primaryButtonText?: string;
+  secondaryButtonText?: string;
+  isExpanded?: boolean;
+  itemId?: string;
+  handleExpandClick?: (itemId?: string) => void;
+  primaryButtonAction?: () => void;
+  secondaryButtonAction?: () => void;
 }
 
 const InbestCard = (props: InbestCardProps) => {
   const {
     header,
     subheader,
-    handleDelete,
-    handleView,
     title,
     subtitle,
     description,
     image,
+    primaryButtonText,
+    secondaryButtonText,
+    isExpanded,
+    itemId,
+    handleExpandClick,
+    primaryButtonAction,
+    secondaryButtonAction,
   } = props;
+  const theme = useTheme();
 
   return (
     <CardContainer>
       <CardHeader
+        title={handleNewLine(header)}
+        subheader={handleNewLine(subheader)}
+        onClick={handleExpandClick}
         action={
-          <IconButton>
-            <MoreVert />
-          </IconButton>
+          itemId && handleExpandClick ? (
+            <IconButton
+              onClick={() => handleExpandClick(itemId)}
+              aria-expanded={isExpanded}
+            >
+              {isExpanded ? <ExpandLessRounded /> : <ExpandMoreRounded />}
+            </IconButton>
+          ) : null
         }
-        title={header}
-        subheader={subheader}
+        sx={{
+          "&:hover": {
+            cursor: itemId && handleExpandClick ? "pointer" : "default",
+          },
+        }}
       />
-      <CardMedia
-        width={188}
-        component="img"
-        image={image ?? CardMediaPlaceholder}
-        alt="card-media"
-      />
-      <CardContentContainer>
-        <Typography variant="h5" component="div">
-          {title}
-        </Typography>
-        <Typography variant="subtitle1" component="div">
-          {subtitle}
-        </Typography>
-        <Typography
-          variant="body2"
-          color={palette.primary.contrastText}
+
+      <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+        {image && (
+          <CardMedia
+            width={188}
+            component="img"
+            image={image ?? CardMediaPlaceholder}
+            alt="card-media"
+          />
+        )}
+        <CardContentContainer>
+          <Typography variant="h5" component="div">
+            {handleNewLine(title)}
+          </Typography>
+          <Typography variant="subtitle1" component="div">
+            {handleNewLine(subtitle)}
+          </Typography>
+          <Typography
+            variant="body2"
+            color={theme.palette.primary.contrastText}
+            sx={{
+              padding: "1.5rem 0rem",
+            }}
+          >
+            {handleNewLine(description)}
+          </Typography>
+        </CardContentContainer>
+        <CardActionsContainer
           sx={{
-            padding: "2rem 0rem",
+            justifyContent:
+              primaryButtonText &&
+              primaryButtonAction &&
+              secondaryButtonText &&
+              secondaryButtonAction
+                ? "space-between"
+                : "flex-end",
           }}
         >
-          {description}
-        </Typography>
-      </CardContentContainer>
-      <CardActionsContainer
-        hasHandleDelete={!!handleDelete}
-        hasHandleView={!!handleView}
-      >
-        {handleDelete && (
-          <InbestButton
-            fullWidth={false}
-            variant="outlined"
-            text="Delete"
-            onClick={handleDelete}
-          />
-        )}
-        {handleView && (
-          <InbestButton
-            fullWidth={false}
-            variant="contained"
-            sx={{
-              background: palette.text.primary,
-              color: palette.primary.main,
-              "&:hover": {
-                background: palette.primary.dark,
-                color: "#FFFFFF",
-              },
-            }}
-            text="View"
-            onClick={handleView}
-          />
-        )}
-      </CardActionsContainer>
+          {secondaryButtonText && secondaryButtonAction && (
+            <InbestButton
+              text={secondaryButtonText}
+              variant="outlined"
+              fullWidth={false}
+              onClick={secondaryButtonAction}
+            />
+          )}
+          {primaryButtonText && primaryButtonAction && (
+            <InbestButton
+              text={primaryButtonText}
+              variant="contained"
+              fullWidth={false}
+              onClick={primaryButtonAction}
+            />
+          )}
+        </CardActionsContainer>
+      </Collapse>
     </CardContainer>
   );
 };
 
 const CardContainer = styled(Card)({
-  maxWidth: 360,
+  maxWidth: "360px",
   width: "100%",
   borderRadius: 16,
+  minWidth: "100%",
 });
 
 const CardContentContainer = styled(CardContent)({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
+  gap: "0.5rem",
 });
 
-const CardActionsContainer = styled(CardActions)(
-  ({
-    hasHandleDelete,
-    hasHandleView,
-  }: {
-    hasHandleDelete: boolean;
-    hasHandleView: boolean;
-  }) => ({
-    display: "flex",
-    padding: "0rem 1rem 1rem 1rem",
-    justifyContent:
-      hasHandleDelete && hasHandleView ? "space-between" : "flex-end",
-    alignItems: "center",
-  })
-);
+const CardActionsContainer = styled(CardActions)({
+  display: "flex",
+  padding: "0rem 1rem 1rem 1rem",
+  alignItems: "center",
+});
+
+const handleNewLine = (text?: string) => {
+  return text?.split("\n").map((line, index) => (
+    <span key={index}>
+      {line}
+      <br />
+    </span>
+  ));
+};
 
 export default InbestCard;

@@ -13,10 +13,19 @@ interface InbestInputProps extends BaseTextFieldProps {
   endIcon?: ReactNode;
   type?: string;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onEnterKeyPress?: () => void;
 }
 
 const InbestInput = (props: InbestInputProps) => {
-  const { name, title, startIcon, endIcon, onChange, ...other } = props;
+  const {
+    name,
+    title,
+    startIcon,
+    endIcon,
+    onChange,
+    onEnterKeyPress,
+    ...other
+  } = props;
   return (
     <Box
       sx={{
@@ -48,6 +57,11 @@ const InbestInput = (props: InbestInputProps) => {
           ...getInputProps(startIcon, endIcon),
         }}
         onChange={onChange}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" && onEnterKeyPress) {
+            onEnterKeyPress();
+          }
+        }}
         {...other}
       />
     </Box>

@@ -7,12 +7,12 @@ import {
   ListItem,
   Typography,
 } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
-import Item from "@mui/material/Unstable_Grid2";
-import InbestCard from "./InbestCard";
+import { default as Grid, default as Item } from "@mui/material/Unstable_Grid2";
 import PostCodeContent from "models/postcode/PostCodeContent";
+import { ReactNode, useEffect, useState } from "react";
 import { TransitionGroup } from "react-transition-group";
 import postcodes from "../store/postcodes";
+import InbestCard from "./InbestCard";
 
 // TODO: Find a way to make this compnent reusable
 interface InbestPostcodeTransitionGroupProps {
@@ -27,7 +27,14 @@ const InbestPostcodeTransitionGroup = (
   const { postcodes, handleDelete } = props;
 
   return (
-    <List sx={{ mt: 1, display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <List
+      sx={{
+        marginTop: 1,
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+      }}
+    >
       <TransitionGroup
         component={Box}
         sx={{
@@ -41,11 +48,11 @@ const InbestPostcodeTransitionGroup = (
           <Collapse
             key={postcode.id}
             sx={{
-              boxSizing: "border-box",
-              boxShadow: "0px 0px 50px 0px rgba(0, 0, 0, 0.19)",
-              borderRadius: "16px",
+              boxShadow: "4px 10px 10px 2px rgba(0, 0, 0, 0.1)",
+              borderRadius: "1rem",
             }}
-            timeout={800}
+            timeout={100}
+            unmountOnExit
           >
             <TransitionGroupListItem
               postcode={postcode}
@@ -66,20 +73,28 @@ export const InbestPostcodeCardTransitionGroup = (
   props: InbestPostcodeCardTransitionGroupProps
 ) => {
   const { postcodes: postCodeComponents } = props;
-  const handleDelete = (postcode: PostCodeContent) => {
-    postcodes.remove(postcode);
-  };
+  const [expandedCards, setExpandedCards] = useState<string[]>([]);
 
-  const handleView = (postcode: PostCodeContent) => {
-    console.log(postcode);
-  };
+  useEffect(() => {
+    if (postCodeComponents.length > 0) {
+      setExpandedCards((prev) => [...prev, postCodeComponents[0].id]);
+    }
+  }, [postCodeComponents]);
 
-  console.log(postCodeComponents);
+  const handleExpandClick = (id: string) => {
+    console.log("handleExpandClick", id);
+    if (expandedCards.includes(id)) {
+      setExpandedCards(expandedCards.filter((cardIndex) => cardIndex !== id));
+      return;
+    }
+    setExpandedCards([...expandedCards, id]);
+  };
 
   return (
     <Box
       sx={{
-        flexGrow: 1,
+        flex: postCodeComponents.length > 0 ? 2 : 0.001,
+        transition: "flex 1s",
       }}
     >
       <TransitionGroup
@@ -89,17 +104,16 @@ export const InbestPostcodeCardTransitionGroup = (
           width: "100%",
         }}
       >
-        {postCodeComponents.map((postcode) => (
-          <Collapse key={postcode.id} timeout={800} component={Item}>
-            <InbestCard
-              header={postcode.postcode || ""}
-              subheader="Admin District"
-              title={postcode.adminDistrict || ""}
-              subtitle="Country"
-              description={postcode.country || ""}
-              handleDelete={() => handleDelete(postcode)}
-              handleView={() => handleView(postcode)}
-            />
+        {postCodeComponents.map((postcode, index) => (
+          <Collapse
+            key={postcode.id}
+            timeout={400}
+            component={Item}
+            sx={{
+              width: "100%",
+            }}
+          >
+            {renderItem(postcode, expandedCards, handleExpandClick)}
           </Collapse>
         ))}
       </TransitionGroup>
@@ -107,15 +121,52 @@ export const InbestPostcodeCardTransitionGroup = (
   );
 };
 
-const TransitionGrid = ({ children }: { children: any }) => (
+const renderItem = (
+  postcode: PostCodeContent,
+  expandedCards: string[],
+  handleExpandClick: (id: string) => void
+) => {
+  const handleDelete = (postcode: PostCodeContent) => {
+    postcodes.remove(postcode);
+  };
+
+  return (
+    <InbestCard
+      header={postcode.country}
+      subheader={postcode.postcode}
+      title={`Admin District:\n${postcode.adminDistrict}`}
+      subtitle={`Latitude: ${postcode.latitude}\nLongitude: ${postcode.longitude}`}
+      description={`Searched at:\n${new Date(
+        postcode.createdAt
+      ).toLocaleDateString("lt-LT", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      })}`}
+      primaryButtonText="Delete"
+      primaryButtonAction={() => handleDelete(postcode)}
+      itemId={postcode.id}
+      isExpanded={expandedCards.includes(postcode.id)}
+      handleExpandClick={() => handleExpandClick(postcode.id)}
+    />
+  );
+};
+
+const TransitionGrid = ({ children }: { children: ReactNode }) => (
   <Grid
     container
+    wrap="wrap"
     direction={"row"}
     spacing={3}
     columns={3}
-    wrap="wrap"
     rowGap={2}
     columnGap={2}
+    sx={{
+      display: "flex",
+    }}
   >
     {children}
   </Grid>
