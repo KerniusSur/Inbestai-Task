@@ -103,7 +103,6 @@ export const HomePageSearchContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     flex: 0,
   },
-
 }));
 
 export default HomePage;
