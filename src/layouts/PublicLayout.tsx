@@ -1,92 +1,63 @@
-import { Box, CssBaseline, styled } from "@mui/material";
-import InbestNavbar from "../components/InbestNavbar";
+import { Box, styled } from "@mui/material";
 import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import InbestFooter from "../components/InbestFooter";
+import InbestNavbar from "../components/InbestNavbar";
 
 const drawerWidth = 320;
 
 const PublicLayout = () => {
+  const location = useLocation();
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
-  const location = useLocation();
-
   return (
-    <OutsideContainer>
-      <CssBaseline />
-      <InbestNavbar
-        isDrawerOpen={isDrawerOpen}
-        drawerWidth={drawerWidth}
-        setIsDrawerOpen={setIsDrawerOpen}
-      />
-      <MainContainer open={isDrawerOpen}>
-        <DrawerHeader
-          sx={{
-            minHeight: "56px !important",
-          }}
+    <FlexBox>
+      <PageContainer>
+        <InbestNavbar
+          isDrawerOpen={isDrawerOpen}
+          drawerWidth={drawerWidth}
+          setIsDrawerOpen={setIsDrawerOpen}
         />
-        <PaddingContainer>
+        <ContentContainer>
           <Outlet />
-        </PaddingContainer>
-      </MainContainer>
-      <InbestFooter
-        showBottomShape={
-          location.pathname === "/404" || location.pathname === "/404/"
-        }
-      />
-    </OutsideContainer>
+        </ContentContainer>
+        <InbestFooter
+          showBottomShape={
+            location.pathname === "/404" || location.pathname === "/404/"
+          }
+        />
+      </PageContainer>
+    </FlexBox>
   );
 };
-
-export const OutsideContainer = styled(Box)(() => {
-  return {
-    display: "flex",
-    flexDirection: "column",
-    height: "100%",
-    backgroundColor: "#fff",
-    overflow: "auto",
-    marginBottom: "56px",
-  };
+export const FlexBox = styled(Box)({
+  display: "flex",
+  height: "100%",
 });
 
-const MainContainer = styled("main", {
-  shouldForwardProp: (prop) => prop !== "open",
-})<{
-  open?: boolean;
-}>(({ theme, open }) => ({
-  height: "100%",
-  flexGrow: 1,
-  padding: theme.spacing(3),
-  transition: theme.transitions.create("margin", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  marginRight: -drawerWidth,
-  maxWidth: "100%",
-  ...(open && {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: 0,
-  }),
-  position: "relative",
-}));
-
-export const PaddingContainer = styled(Box)(({ theme }) => ({
-  boxSizing: "border-box",
-  padding: "1rem",
-  width: "100%",
-  height: "calc(100% - 80px)",
-}));
-
-export const DrawerHeader = styled("div")(({ theme }) => ({
+export const PageContainer = styled(Box)({
   display: "flex",
-  alignItems: "center",
-  // padding: theme.spacing(0, 1),
-  minHeight: "80px !important",
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-start",
+  flexDirection: "column",
+  width: "100%",
+  overflow: "auto",
+});
+
+export const ContentContainer = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  height: "100%",
+  width: "100%",
+  boxSizing: "border-box",
+  padding: "3rem 2.5rem 6rem 2.5rem",
+  [theme.breakpoints.down("lg")]: {
+    padding: "2.5rem 2rem 5rem 2rem",
+  },
+  [theme.breakpoints.down("md")]: {
+    padding: "2rem 1.5rem 4rem 1.5rem",
+  },
+  [theme.breakpoints.down("sm")]: {
+    padding: "1.5rem 1rem 3rem 1rem",
+  },
 }));
 
 export default PublicLayout;

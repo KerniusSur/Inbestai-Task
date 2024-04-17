@@ -1,7 +1,5 @@
 import { MenuOutlined } from "@mui/icons-material";
-import { Box, Divider, IconButton, styled, Typography } from "@mui/material";
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-
+import { AppBar, Box, Hidden, IconButton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InbestExerciseLogo from "../assets/inbest-exercise-logo.svg";
@@ -23,7 +21,7 @@ const InbestNavbar = (props: InbestNavbarProps) => {
   useEffect(() => {
     const listenScrollEvent = (event: Event) => {
       if (typeof window !== "undefined") {
-        setIsHeaderMinimized(window.scrollY > 150);
+        setIsHeaderMinimized(window.scrollY > 50);
       }
     };
 
@@ -36,16 +34,9 @@ const InbestNavbar = (props: InbestNavbarProps) => {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-      }}
-    >
+    <>
       <AppBar
-        position="fixed"
-        open={isDrawerOpen}
+        position="sticky"
         sx={{
           transition: "background-color 1s ease",
           backgroundColor: isHeaderMinimized
@@ -91,70 +82,47 @@ const InbestNavbar = (props: InbestNavbarProps) => {
               />
             </Box>
 
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: "2.5rem",
-              }}
-            >
-              <Typography
-                variant="h5"
-                onClick={() => {
-                  navigate("/");
+            <Hidden mdDown>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "2.5rem",
                 }}
+              >
+                {navbarNavigationItems.map((item) => (
+                  <Typography
+                    key={item.path}
+                    variant="h5"
+                    onClick={() => {
+                      navigate(item.path);
+                    }}
+                    sx={{
+                      cursor: "pointer",
+                    }}
+                  >
+                    {item.label}
+                  </Typography>
+                ))}
+              </Box>
+            </Hidden>
+
+            <Hidden mdUp>
+              <IconButton
                 sx={{
                   "&:hover": {
                     cursor: "pointer",
                   },
                 }}
+                onClick={toggleDrawer}
               >
-                Home
-              </Typography>
-
-              <Typography
-                variant="h5"
-                onClick={() => {
-                  navigate("/non-existent-route");
-                }}
-                sx={{
-                  "&:hover": {
-                    cursor: "pointer",
-                  },
-                }}
-              >
-                404
-              </Typography>
-
-              <Typography
-                variant="h5"
-                onClick={() => {
-                  navigate("/contact");
-                }}
-                sx={{
-                  "&:hover": {
-                    cursor: "pointer",
-                  },
-                }}
-              >
-                Contact
-              </Typography>
-            </Box>
-
-            <IconButton
-              sx={{
-                "&:hover": {
-                  cursor: "pointer",
-                },
-              }}
-              onClick={toggleDrawer}
-            >
-              <MenuOutlined
-                sx={{
-                  color: "#000",
-                }}
-              />
-            </IconButton>
+                <MenuOutlined
+                  sx={{
+                    color: "secondary.main",
+                  }}
+                />
+              </IconButton>
+            </Hidden>
           </Box>
         </Box>
       </AppBar>
@@ -163,34 +131,28 @@ const InbestNavbar = (props: InbestNavbarProps) => {
         toggleDrawer={toggleDrawer}
         drawerWidth={drawerWidth}
       />
-      <Divider
-        sx={{
-          width: "calc(100% + 160px)",
-          marginLeft: "-160px",
-          borderColor: "#0E0E0E",
-        }}
-      />
-    </Box>
+    </>
   );
 };
 
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
+export interface NavbarNavigationItem {
+  label: string;
+  path: string;
 }
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})<AppBarProps>(({ theme, open }) => ({
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
+export const navbarNavigationItems = [
+  {
+    label: "Home",
+    path: "/",
+  },
+  {
+    label: "404",
+    path: "/non-existent-route",
+  },
+  {
+    label: "Contact",
+    path: "/contact",
+  },
+];
 
 export default InbestNavbar;
