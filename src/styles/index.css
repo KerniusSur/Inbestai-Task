@@ -13,8 +13,6 @@ body {
   height: 100%;
 }
 
-
-
 /* Hide the webpack-dev-server client error overlay */
 iframe#webpack-dev-server-client-overlay {
   display: none;

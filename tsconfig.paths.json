@@ -11,7 +11,7 @@
       "models/*": ["./models/*"],
       "pages/*": ["./pages/*"],
       "store/*": ["./store/*"],
-      "utils/*": ["./utils/*"],
+      "utils/*": ["./utils/*"]
     }
   }
 }
