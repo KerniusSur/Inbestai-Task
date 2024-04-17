@@ -12,7 +12,6 @@
       "pages/*": ["./pages/*"],
       "store/*": ["./store/*"],
       "utils/*": ["./utils/*"],
-      "theme/*": ["./theme/*"]
     }
   }
 }
