@@ -7,11 +7,12 @@ import {
   ListItem,
   Typography,
 } from "@mui/material";
-import { default as Grid, default as Item } from "@mui/material/Unstable_Grid2";
+import { default as Grid } from "@mui/material/Unstable_Grid2";
 import PostCodeContent from "models/postcode/PostCodeContent";
 import { ReactNode, useEffect, useState } from "react";
-import { TransitionGroup } from "react-transition-group";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import postcodes from "../store/postcodes";
+import "../styles/GroupTransitionStyles.css";
 import InbestCard from "./InbestCard";
 
 // TODO: Find a way to make this compnent reusable
@@ -104,17 +105,25 @@ export const InbestPostcodeCardTransitionGroup = (
           width: "100%",
         }}
       >
-        {postCodeComponents.map((postcode, index) => (
-          <Collapse
-            key={postcode.id}
-            timeout={400}
-            component={Item}
-            sx={{
-              width: "100%",
-            }}
-          >
+        {postCodeComponents.map((postcode) => (
+          // <Collapse
+          //   orientation="horizontal"
+          //   key={postcode.id}
+          //   timeout={300}
+          //   component={Item}
+          //   // onEnter={() => {
+          //   //   console.log("onEnter");
+          //   //   setExpandedCards((prev) => [...prev, postcode.id]);
+          //   // }}
+          //   sx={{
+          //     width: "100%",
+          //   }}
+          // >
+
+          <CSSTransition key={postcode.id} timeout={500} classNames="postcode">
             {renderItem(postcode, expandedCards, handleExpandClick)}
-          </Collapse>
+          </CSSTransition>
+          // </Collapse>
         ))}
       </TransitionGroup>
     </Box>

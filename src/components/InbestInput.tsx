@@ -17,15 +17,8 @@ interface InbestInputProps extends BaseTextFieldProps {
 }
 
 const InbestInput = (props: InbestInputProps) => {
-  const {
-    name,
-    title,
-    startIcon,
-    endIcon,
-    onChange,
-    onEnterKeyPress,
-    ...other
-  } = props;
+  const { title, startIcon, endIcon, onChange, onEnterKeyPress, ...other } =
+    props;
   return (
     <Box
       sx={{

@@ -34,104 +34,102 @@ const InbestNavbar = (props: InbestNavbarProps) => {
   };
 
   return (
-    <>
-      <AppBar
-        position="sticky"
+    <AppBar
+      position="sticky"
+      sx={{
+        transition: "background-color 1s ease",
+        backgroundColor: isHeaderMinimized
+          ? "background.paper"
+          : "primary.main",
+      }}
+    >
+      <Box
         sx={{
-          transition: "background-color 1s ease",
-          backgroundColor: isHeaderMinimized
-            ? "background.paper"
-            : "primary.main",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+          boxSizing: "border-box",
+          padding: "16px 32px",
         }}
       >
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-between",
             alignItems: "center",
+            justifyContent: "space-between",
+            gap: "2rem",
             width: "100%",
-            boxSizing: "border-box",
-            padding: "16px 32px",
           }}
         >
           <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: "2rem",
-              width: "100%",
+              "&:hover": {
+                cursor: "pointer",
+              },
+            }}
+            onClick={() => {
+              navigate("/");
             }}
           >
+            <img
+              style={{
+                height: "42px",
+              }}
+              alt="inbest-exercise-logo"
+              src={InbestExerciseLogo as any}
+            />
+          </Box>
+
+          <Hidden mdDown>
             <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: "2.5rem",
+              }}
+            >
+              {navbarNavigationItems.map((item) => (
+                <Typography
+                  key={item.path}
+                  variant="h5"
+                  onClick={() => {
+                    navigate(item.path);
+                  }}
+                  sx={{
+                    cursor: "pointer",
+                  }}
+                >
+                  {item.label}
+                </Typography>
+              ))}
+            </Box>
+          </Hidden>
+
+          <Hidden mdUp>
+            <IconButton
               sx={{
                 "&:hover": {
                   cursor: "pointer",
                 },
               }}
-              onClick={() => {
-                navigate("/");
-              }}
+              onClick={toggleDrawer}
             >
-              <img
-                style={{
-                  height: "42px",
+              <MenuOutlined
+                sx={{
+                  color: "secondary.main",
                 }}
-                alt="inbest-exercise-logo"
-                src={InbestExerciseLogo as any}
               />
-            </Box>
-
-            <Hidden mdDown>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "2.5rem",
-                }}
-              >
-                {navbarNavigationItems.map((item) => (
-                  <Typography
-                    key={item.path}
-                    variant="h5"
-                    onClick={() => {
-                      navigate(item.path);
-                    }}
-                    sx={{
-                      cursor: "pointer",
-                    }}
-                  >
-                    {item.label}
-                  </Typography>
-                ))}
-              </Box>
-            </Hidden>
-
-            <Hidden mdUp>
-              <IconButton
-                sx={{
-                  "&:hover": {
-                    cursor: "pointer",
-                  },
-                }}
-                onClick={toggleDrawer}
-              >
-                <MenuOutlined
-                  sx={{
-                    color: "secondary.main",
-                  }}
-                />
-              </IconButton>
-            </Hidden>
-          </Box>
+            </IconButton>
+          </Hidden>
         </Box>
-      </AppBar>
+      </Box>
       <InbestDrawer
         isDrawerOpen={isDrawerOpen}
         toggleDrawer={toggleDrawer}
         drawerWidth={drawerWidth}
       />
-    </>
+    </AppBar>
   );
 };
 

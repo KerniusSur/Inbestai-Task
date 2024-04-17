@@ -11,20 +11,16 @@ const InbestFooter = (props: InbestFooterProps) => {
   return (
     <Paper
       square
+      component="footer"
       variant={!showBottomShape ? "outlined" : "elevation"}
       sx={{
-        border: showBottomShape ? "none" : "1px solid rgba(0, 0, 0, 0.1)",
+        borderTop: showBottomShape ? "none" : "1px solid rgba(0, 0, 0, 0.1)",
         boxShadow: "none",
+        width: "calc(100% - 2px)",
       }}
     >
       {showBottomShape && (
-        <img
-          src={ElementorBottomShape as any}
-          alt="Elementor Bottom Shape"
-          style={{
-            borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
-          }}
-        />
+        <img src={ElementorBottomShape as any} alt="Elementor Bottom Shape" />
       )}
       <Container
         sx={{

@@ -39,13 +39,12 @@ export const PageContainer = styled(Box)({
   display: "flex",
   flexDirection: "column",
   width: "100%",
-  overflow: "auto",
 });
 
 export const ContentContainer = styled(Box)(({ theme }) => ({
+  flex: 1,
   display: "flex",
   justifyContent: "center",
-  height: "100%",
   width: "100%",
   boxSizing: "border-box",
   padding: "3rem 2.5rem 6rem 2.5rem",

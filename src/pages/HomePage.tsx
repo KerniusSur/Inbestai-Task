@@ -80,6 +80,7 @@ export const HomePageContainer = styled(Box)(({ theme }) => ({
   maxWidth: "1600px",
   justifyContent: "space-between",
   width: "100%",
+  height: "100%",
   gap: "4rem",
   [theme.breakpoints.down("md")]: {
     flexDirection: "column",
@@ -87,7 +88,7 @@ export const HomePageContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const HomePageSearchContainer = styled(Box)({
+export const HomePageSearchContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "2rem",
@@ -98,7 +99,11 @@ export const HomePageSearchContainer = styled(Box)({
   padding: "2rem",
   boxSizing: "border-box",
   backgroundColor: "white",
-  height: "fit-content !important",
-});
+  height: "fit-content",
+  [theme.breakpoints.down("md")]: {
+    flex: 0,
+  },
+
+}));
 
 export default HomePage;

@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material";
 import { CSSProperties } from "react";
 
-let AppTheme = createTheme({
+let initialTheme = createTheme({
   breakpoints: {
     values: {
       xs: 300,
@@ -36,7 +36,7 @@ let AppTheme = createTheme({
   },
 });
 
-AppTheme = createTheme(AppTheme, {
+const AppTheme = createTheme(initialTheme, {
   components: {
     MuiButton: {
       styleOverrides: {
@@ -49,21 +49,21 @@ AppTheme = createTheme(AppTheme, {
           border: "1px solid #222222",
           backgroundColor: "transparent",
           transition: "all 0.3s",
-          color: AppTheme.palette.secondary.main,
+          color: initialTheme.palette.secondary.main,
           "&:hover": {
-            backgroundColor: AppTheme.palette.secondary.main,
-            color: AppTheme.palette.primary.main,
-            borderColor: AppTheme.palette.primary.main,
+            backgroundColor: initialTheme.palette.secondary.main,
+            color: initialTheme.palette.primary.main,
+            borderColor: initialTheme.palette.primary.main,
           },
         },
         contained: {
           border: "1px solid",
           transition: "all 0.3s",
-          backgroundColor: AppTheme.palette.secondary.main,
+          backgroundColor: initialTheme.palette.secondary.main,
           color: "white",
           "&:hover": {
-            backgroundColor: AppTheme.palette.secondary.dark,
-            color: AppTheme.palette.secondary.contrastText,
+            backgroundColor: initialTheme.palette.secondary.dark,
+            color: initialTheme.palette.secondary.contrastText,
             borderColor: "transparent",
           },
         },
@@ -122,13 +122,13 @@ AppTheme = createTheme(AppTheme, {
       fontSize: "240px",
       fontWeight: 700,
       lineHeight: 1,
-      [AppTheme.breakpoints.down("lg")]: {
+      [initialTheme.breakpoints.down("lg")]: {
         fontSize: "200px",
       },
-      [AppTheme.breakpoints.down("md")]: {
+      [initialTheme.breakpoints.down("md")]: {
         fontSize: "174px",
       },
-      [AppTheme.breakpoints.down("sm")]: {
+      [initialTheme.breakpoints.down("sm")]: {
         fontSize: "120px",
       },
     },
@@ -147,13 +147,13 @@ AppTheme = createTheme(AppTheme, {
       letterSpacing: "-2px",
       fontStyle: "normal",
       fontWeight: 600,
-      [AppTheme.breakpoints.down("md")]: {
+      [initialTheme.breakpoints.down("md")]: {
         fontSize: "4rem",
       },
-      [AppTheme.breakpoints.down("sm")]: {
+      [initialTheme.breakpoints.down("sm")]: {
         fontSize: "3rem",
       },
-      [AppTheme.breakpoints.down("xs")]: {
+      [initialTheme.breakpoints.down("xs")]: {
         fontSize: "2rem",
       },
     },
@@ -164,10 +164,10 @@ AppTheme = createTheme(AppTheme, {
       fontStyle: "normal",
       letterSpacing: "-2px",
       fontWeight: 600,
-      [AppTheme.breakpoints.down("md")]: {
+      [initialTheme.breakpoints.down("md")]: {
         fontSize: "36px",
       },
-      [AppTheme.breakpoints.down("sm")]: {
+      [initialTheme.breakpoints.down("sm")]: {
         fontSize: "32px",
       },
     },

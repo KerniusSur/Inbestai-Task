@@ -1,0 +1,21 @@
+.remove-btn {
+  margin-right: 0.5rem;
+}
+
+.postcode-enter {
+  opacity: 0;
+}
+.postcode-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.postcode-exit {
+  /* opacity: 1; */
+
+  margin-top: 0;
+}
+.postcode-exit-active {
+  /* opacity: 0; */
+  margin-top: -100%;
+  transition: margin-top 500ms ease-in;
+}
