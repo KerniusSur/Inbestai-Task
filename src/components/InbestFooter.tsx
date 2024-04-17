@@ -6,7 +6,7 @@ interface InbestFooterProps {
   showBottomShape?: boolean;
 }
 
-const   InbestFooter = (props: InbestFooterProps) => {
+const InbestFooter = (props: InbestFooterProps) => {
   const { showBottomShape } = props;
   return (
     <Paper

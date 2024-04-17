@@ -9,7 +9,7 @@ import {
   IconButton,
   styled,
   Typography,
-  useTheme
+  useTheme,
 } from "@mui/material";
 import CardMediaPlaceholder from "../assets/card-media-placeholder.png";
 import InbestButton from "./InbestButton";
