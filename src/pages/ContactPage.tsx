@@ -5,14 +5,27 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { PageInnerContainer } from "../layouts/PublicLayout";
-import InbestInput from "../components/InbestInput";
+import { ChangeEvent, FormEvent, useState } from "react";
 import InbestBackgroundWidget from "../components/InbestBackgroundWidget";
 import InbestButton from "../components/InbestButton";
+import InbestInput from "../components/InbestInput";
+import { PageInnerContainer } from "../layouts/PublicLayout";
 
 const ContactPage = () => {
   const theme = useTheme();
   const mdDown = useMediaQuery(theme.breakpoints.down("md"));
+  const [values, setValues] = useState<ContactFormValues>(initialValues);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(
+      `Thank you for your message!\n\nValues:\n\tName: ${values.name}\n\tEmail: ${values.email}\n\tMessage: ${values.message}`
+    );
+  };
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setValues({ ...values, [event.target.name]: event.target.value });
+  };
 
   return (
     <PageInnerContainer
@@ -47,7 +60,7 @@ const ContactPage = () => {
           </a>
         </Typography>
       </ContactDetailsContainer>
-      <ContactFormContainer>
+      <ContactFormContainer onSubmit={handleSubmit}>
         <Box
           sx={{
             display: "flex",
@@ -59,11 +72,28 @@ const ContactPage = () => {
             },
           }}
         >
-          <InbestInput placeholder="Name" required />
-          <InbestInput placeholder="Email" required />
+          <InbestInput
+            name="name"
+            placeholder="Name"
+            required
+            onChange={handleChange}
+          />
+          <InbestInput
+            name="email"
+            placeholder="Email"
+            required
+            onChange={handleChange}
+          />
         </Box>
-        <InbestInput placeholder="Message" required multiline rows={6} />
-        <InbestButton variant="outlined" text="Send" fullWidth />
+        <InbestInput
+          name="message"
+          placeholder="Message"
+          required
+          multiline
+          rows={6}
+          onChange={handleChange}
+        />
+        <InbestButton variant="outlined" text="Send" fullWidth type="submit" />
         <Box
           sx={{
             display: "flex",
@@ -88,6 +118,18 @@ const ContactPage = () => {
   );
 };
 
+export interface ContactFormValues {
+  name: string;
+  email: string;
+  message: string;
+}
+
+const initialValues: ContactFormValues = {
+  name: "",
+  email: "",
+  message: "",
+};
+
 const ContactDetailsContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -98,7 +140,7 @@ const ContactDetailsContainer = styled(Box)(({ theme }) => ({
   order: 2,
 }));
 
-const ContactFormContainer = styled(Box)(({ theme }) => ({
+const ContactFormContainer = styled("form")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "1rem",
