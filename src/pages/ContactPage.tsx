@@ -61,9 +61,18 @@ const ContactPage = () => {
         <Typography variant="body1">
           If you have any questions or feedback, feel free to contact me using
           the form, or write me an email at: <br />
-          <a href="mailto:kernius.survila@gmail.com">
+          <Typography
+            variant="hyperlink"
+            color="rgb(0, 0, 238)"
+            fontSize="1.25rem"
+            onClick={() => {
+              window.location.href = "mailto:kernius.survila@gmail.com";
+            }}
+          >
+            {/* <a href="mailto:kernius.survila@gmail.com" style={{ textDecoration: "none" }}> */}
             kernius.survila@gmail.com
-          </a>
+            {/* </a> */}
+          </Typography>
         </Typography>
       </ContactDetailsContainer>
       <ContactFormContainer onSubmit={handleSubmit}>
@@ -117,9 +126,14 @@ const ContactPage = () => {
             <br />
             However, if you have any quesitons or remarks, I would love to hear
             from you, so feel free to write me an email at:{" "}
-            <a href="mailto:kernius.survila@gmail.com">
+            <Typography
+              variant="hyperlink"
+              onClick={() => {
+                window.location.href = "mailto:kernius.survila@gmail.com";
+              }}
+            >
               kernius.survila@gmail.com
-            </a>
+            </Typography>
           </Typography>
         </Box>
       </ContactFormContainer>

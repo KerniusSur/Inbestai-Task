@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { Property } from "csstype";
 import { CSSProperties, useEffect } from "react";
 import InbestWidgetIcon1 from "../assets/inbest-widget-1.svg";
@@ -17,7 +16,7 @@ interface InbestBackgroundInteractiveWidgetProps {
 const InbestBackgroundWidget = (
   props: InbestBackgroundInteractiveWidgetProps
 ) => {
-  const { iconNumber = 1 } = props;
+  const { iconNumber = 1, widgetPosition } = props;
 
   useEffect(() => {
     const root = document.getElementById("root") as HTMLElement;
@@ -49,8 +48,8 @@ const InbestBackgroundWidget = (
       id="widget-container"
       className="widget-container"
       style={{
-        left: props.widgetPosition?.left,
-        top: props.widgetPosition?.top,
+        left: widgetPosition?.left,
+        top: widgetPosition?.top,
       }}
     >
       <img
