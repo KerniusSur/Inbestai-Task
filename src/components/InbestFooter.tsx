@@ -1,13 +1,12 @@
 import { Container, Paper, Typography } from "@mui/material";
 import ElementorBottomShape from "../assets/inbest-bottom-shape.svg";
 import InbestExerciseHorizontalLogo from "../assets/inbest-exercise-horizontal-logo.svg";
+import { useLocation } from "react-router-dom";
 
-interface InbestFooterProps {
-  showBottomShape?: boolean;
-}
-
-const InbestFooter = (props: InbestFooterProps) => {
-  const { showBottomShape } = props;
+const InbestFooter = () => {
+  const location = useLocation();
+  const showBottomShape =
+    location.pathname === "/404" || location.pathname === "/404/";
   return (
     <Paper
       square
@@ -29,7 +28,7 @@ const InbestFooter = (props: InbestFooterProps) => {
           justifyContent: "space-between",
           padding: "1rem 3rem !important",
           boxSizing: "border-box",
-          maxWidth: "1400px",
+          maxWidth: "1600px !important",
           gap: "1rem",
           flexWrap: "wrap",
         }}

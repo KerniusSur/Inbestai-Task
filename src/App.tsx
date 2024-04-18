@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import InbestSnackbar from "./components/InbestSnackbar";
 import routeGroups from "./constants/routeGroups";
 import routes from "./constants/routes";
-
 import useDebounce from "./hooks/useDebounce";
 import { store } from "./store/configureStore";
 import AppTheme from "./styles/AppTheme";

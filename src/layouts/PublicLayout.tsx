@@ -1,31 +1,19 @@
 import { Box, styled } from "@mui/material";
-import { useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import InbestFooter from "../components/InbestFooter";
 import InbestNavbar from "../components/InbestNavbar";
 
 const drawerWidth = 300;
 
 const PublicLayout = () => {
-  const location = useLocation();
-  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-
   return (
     <FlexBox>
       <PageContainer>
-        <InbestNavbar
-          isDrawerOpen={isDrawerOpen}
-          drawerWidth={drawerWidth}
-          setIsDrawerOpen={setIsDrawerOpen}
-        />
+        <InbestNavbar drawerWidth={drawerWidth} />
         <ContentContainer>
           <Outlet />
         </ContentContainer>
-        <InbestFooter
-          showBottomShape={
-            location.pathname === "/404" || location.pathname === "/404/"
-          }
-        />
+        <InbestFooter />
       </PageContainer>
     </FlexBox>
   );

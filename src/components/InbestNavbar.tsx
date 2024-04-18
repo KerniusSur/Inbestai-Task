@@ -15,18 +15,17 @@ import InbestExerciseLogo from "../assets/inbest-exercise-logo.svg";
 import InbestDrawer from "../components/InbestDrawer";
 
 interface InbestNavbarProps {
-  isDrawerOpen: boolean;
   drawerWidth: number;
-  setIsDrawerOpen: (isDrawerOpen: boolean) => void;
 }
 
 const InbestNavbar = (props: InbestNavbarProps) => {
-  const { isDrawerOpen, drawerWidth, setIsDrawerOpen } = props;
+  const { drawerWidth } = props;
 
   const navigate = useNavigate();
   const isBelowMd = useMediaQuery("(max-width: 768px)");
 
   const [isHeaderMinimized, setIsHeaderMinimized] = useState<boolean>(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
   const listenScrollEvent = useCallback(() => {
     setIsHeaderMinimized(window.scrollY > 50);
