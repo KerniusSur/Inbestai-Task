@@ -12,7 +12,7 @@ import toast from "../store/toast";
 import { PageInnerContainer } from "../layouts/PublicLayout";
 
 const HomePage = () => {
-  const postCodeState = useAppSelector((state) => state.postcodes);
+  const postcodeState = useAppSelector((state) => state.postcodes);
   const theme = useTheme();
   const [postcode, setPostcode] = useState<string>("");
   const [expandedCards, setExpandedCards] = useState<string[]>([]);
@@ -23,18 +23,18 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    const postCodeList = postCodeState.postcodes ?? [];
-    setPostcodeList(postCodeList);
+    const postcodeList = postcodeState.postcodes ?? [];
+    setPostcodeList(postcodeList);
     setPostcode("");
-    if (postCodeList.length > 0) {
-      if (postCodeList.length > 5) {
-        setExpandedCards([postCodeState.postcodes[0].id]);
+    if (postcodeList.length > 0) {
+      if (postcodeList.length > 5) {
+        setExpandedCards([postcodeState.postcodes[0].id]);
         return;
       }
 
-      setExpandedCards((prev) => [...prev, postCodeState.postcodes[0].id]);
+      setExpandedCards((prev) => [...prev, postcodeState.postcodes[0].id]);
     }
-  }, [postCodeState.postcodes]);
+  }, [postcodeState.postcodes]);
 
   const handleSearch = () => {
     postcodes.lookup(postcode);
@@ -49,7 +49,11 @@ const HomePage = () => {
   };
 
   return (
-    <PageInnerContainer>
+    <PageInnerContainer
+      sx={{
+        gap: postcodeState.postcodes.length > 0 ? "2rem" : "0",
+      }}
+    >
       <InbestBackgroundWidget />
       <HomePageSearchContainer
         sx={{
@@ -127,6 +131,7 @@ export const HomePageSearchContainer = styled(Box)(({ theme }) => ({
   boxSizing: "border-box",
   backgroundColor: "white",
   height: "fit-content",
+  minHeight: "376px",
   [theme.breakpoints.down("md")]: {
     flex: 0,
     gap: "1.5rem",

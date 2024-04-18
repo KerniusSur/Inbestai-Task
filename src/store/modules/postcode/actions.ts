@@ -18,23 +18,23 @@ export const addPostCode =
 
 export const removePostCode =
   (
-    postCodeToRemove: PostCodeContent
+    postcodeToRemove: PostCodeContent
   ): ThunkAction<void, RootState, unknown, UnknownAction> =>
   (dispatch) => {
-    dispatch(actions.removePostCode({ postcode: postCodeToRemove }));
+    dispatch(actions.removePostCode({ postcode: postcodeToRemove }));
   };
 
 export const lookupPostCode =
   (newPostCode: string): ThunkAction<void, RootState, unknown, UnknownAction> =>
   async (dispatch) => {
-    const postCodeApi = createApi() as PostCodes;
-    const response = await postCodeApi.lookup(newPostCode);
+    const postcodeApi = createApi() as PostCodes;
+    const response = await postcodeApi.lookup(newPostCode);
 
     if (response === null) {
       return false;
     }
 
-    const postCode: PostCodeContent = {
+    const postcode: PostCodeContent = {
       id: uuidv4(),
       postcode: response.result.postcode,
       country: response.result.country,
@@ -44,5 +44,5 @@ export const lookupPostCode =
       createdAt: new Date().toISOString(),
     };
 
-    dispatch(actions.addPostCode({ postcode: postCode }));
+    dispatch(actions.addPostCode({ postcode: postcode }));
   };
