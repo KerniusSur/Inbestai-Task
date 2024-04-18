@@ -1,4 +1,4 @@
-import { Box, Collapse, styled, Typography } from "@mui/material";
+import { Box, Collapse, styled, Typography, useTheme } from "@mui/material";
 import PostCodeContent from "models/postcode/PostCodeContent";
 import { ChangeEvent, useEffect, useState } from "react";
 import { TransitionGroup } from "react-transition-group";
@@ -9,10 +9,11 @@ import InbestInput from "../components/InbestInput";
 import { useAppSelector } from "../hooks/reduxHooks";
 import postcodes from "../store/postcodes";
 import toast from "../store/toast";
+import { PageInnerContainer } from "../layouts/PublicLayout";
 
 const HomePage = () => {
   const postCodeState = useAppSelector((state) => state.postcodes);
-
+  const theme = useTheme();
   const [postcode, setPostcode] = useState<string>("");
   const [expandedCards, setExpandedCards] = useState<string[]>([]);
   const [postcodeList, setPostcodeList] = useState<PostCodeContent[]>([]);
@@ -22,7 +23,6 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-
     const postCodeList = postCodeState.postcodes ?? [];
     setPostcodeList(postCodeList);
     setPostcode("");
@@ -49,7 +49,7 @@ const HomePage = () => {
   };
 
   return (
-    <HomePageContainer>
+    <PageInnerContainer>
       <InbestBackgroundWidget />
       <HomePageSearchContainer
         sx={{
@@ -61,6 +61,9 @@ const HomePage = () => {
           sx={{
             alignSelf: "flex-start",
             paddingBottom: "1rem",
+            [theme.breakpoints.down("md")]: {
+              paddingBottom: "0",
+            },
           }}
           variant="h4"
         >
@@ -108,23 +111,9 @@ const HomePage = () => {
           ))}
         </TransitionGroup>
       </Box>
-    </HomePageContainer>
+    </PageInnerContainer>
   );
 };
-
-export const HomePageContainer = styled(Box)(({ theme }) => ({
-  display: "flex",
-  boxSizing: "border-box",
-  maxWidth: "1600px",
-  justifyContent: "space-between",
-  width: "100%",
-  height: "100%",
-  gap: "4rem",
-  [theme.breakpoints.down("md")]: {
-    flexDirection: "column",
-    gap: "2rem",
-  },
-}));
 
 export const HomePageSearchContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -140,6 +129,10 @@ export const HomePageSearchContainer = styled(Box)(({ theme }) => ({
   height: "fit-content",
   [theme.breakpoints.down("md")]: {
     flex: 0,
+    gap: "1.5rem",
+  },
+  [theme.breakpoints.down("sm")]: {
+    gap: "1rem",
   },
 }));
 

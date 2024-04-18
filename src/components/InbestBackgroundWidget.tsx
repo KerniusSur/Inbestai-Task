@@ -1,10 +1,17 @@
-import { useEffect } from "react";
-import "../styles/WidgetStyles.css";
+/* eslint-disable no-undef */
+import { Property } from "csstype";
+import { CSSProperties, useEffect } from "react";
 import InbestWidgetIcon1 from "../assets/inbest-widget-1.svg";
 import InbestWidgetIcon2 from "../assets/inbest-widget-2.svg";
+import "../styles/WidgetStyles.css";
 
 interface InbestBackgroundInteractiveWidgetProps {
   iconNumber?: number;
+  widgetPosition?: Extract<
+    CSSProperties,
+    | { left?: Property.Left<string | number> | undefined }
+    | { top?: Property.Top<string | number> | undefined }
+  >;
 }
 
 const InbestBackgroundWidget = (
@@ -38,7 +45,14 @@ const InbestBackgroundWidget = (
   }, []);
 
   return (
-    <div id="widget-container" className="widget-container">
+    <div
+      id="widget-container"
+      className="widget-container"
+      style={{
+        left: props.widgetPosition?.left,
+        top: props.widgetPosition?.top,
+      }}
+    >
       <img
         className="widget-icon"
         src={(iconNumber === 1 ? InbestWidgetIcon1 : InbestWidgetIcon2) as any}

@@ -1,5 +1,14 @@
 import { MenuOutlined } from "@mui/icons-material";
-import { AppBar, Box, Hidden, IconButton, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Hidden,
+  IconButton,
+  styled,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InbestExerciseLogo from "../assets/inbest-exercise-logo.svg";
@@ -14,7 +23,9 @@ interface InbestNavbarProps {
 const InbestNavbar = (props: InbestNavbarProps) => {
   const { isDrawerOpen, drawerWidth, setIsDrawerOpen } = props;
 
+  const theme = useTheme();
   const navigate = useNavigate();
+  const isBelowMd = useMediaQuery("(max-width: 768px)");
 
   const [isHeaderMinimized, setIsHeaderMinimized] = useState<boolean>(false);
 
@@ -50,7 +61,17 @@ const InbestNavbar = (props: InbestNavbarProps) => {
           alignItems: "center",
           width: "100%",
           boxSizing: "border-box",
-          padding: "16px 32px",
+          padding: "1rem 6rem 1rem 2rem",
+          [theme.breakpoints.between("md", "sm")]: {
+            padding: "1rem 4rem 1rem 1rem",
+          },
+          [theme.breakpoints.between("sm", "xs")]: {
+            padding: "1rem 2rem 1rem 1rem",
+          },
+          [theme.breakpoints.down("xs")]: {
+            padding: "1rem ",
+          },
+          transition: "padding .5s",
         }}
       >
         <Box
@@ -90,23 +111,20 @@ const InbestNavbar = (props: InbestNavbarProps) => {
               }}
             >
               {navbarNavigationItems.map((item) => (
-                <Typography
+                <NavBarTextButton
                   key={item.path}
                   variant="h5"
+                  isHeaderMinimized={isHeaderMinimized}
                   onClick={() => {
                     navigate(item.path);
                   }}
-                  sx={{
-                    cursor: "pointer",
-                  }}
                 >
                   {item.label}
-                </Typography>
+                </NavBarTextButton>
               ))}
             </Box>
           </Hidden>
-
-          <Hidden mdUp>
+          {isBelowMd && (
             <IconButton
               sx={{
                 "&:hover": {
@@ -121,7 +139,7 @@ const InbestNavbar = (props: InbestNavbarProps) => {
                 }}
               />
             </IconButton>
-          </Hidden>
+          )}
         </Box>
       </Box>
       <InbestDrawer
@@ -132,6 +150,34 @@ const InbestNavbar = (props: InbestNavbarProps) => {
     </AppBar>
   );
 };
+
+const NavBarTextButton = styled(Typography)(
+  ({ isHeaderMinimized }: { isHeaderMinimized?: boolean }) =>
+    ({ theme }) => ({
+      cursor: "pointer",
+      display: "inline-block",
+      textDecoration: "none",
+
+      "&:after": {
+        content: '""',
+        display: "block",
+        width: 0,
+        height: "2px",
+        background: isHeaderMinimized
+          ? theme.palette.primary.main
+          : theme.palette.secondary.main,
+        transition: "width .3s ease-in-out",
+      },
+
+      transition: "opacity .2s ease-in-out",
+      "&:hover": {
+        opacity: 0.8,
+        "&:after": {
+          width: "100%",
+        },
+      },
+    })
+);
 
 export interface NavbarNavigationItem {
   label: string;

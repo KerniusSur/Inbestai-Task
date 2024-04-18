@@ -168,7 +168,7 @@ const AppTheme = createTheme(initialTheme, {
         fontSize: "36px",
       },
       [initialTheme.breakpoints.down("sm")]: {
-        fontSize: "32px",
+        fontSize: "27px",
       },
     },
     h5: {

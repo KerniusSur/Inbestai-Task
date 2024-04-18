@@ -59,4 +59,18 @@ export const ContentContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
+export const PageInnerContainer = styled(Box)(({ theme }) => ({
+  display: "flex",
+  boxSizing: "border-box",
+  maxWidth: "1600px",
+  justifyContent: "center",
+  width: "100%",
+  height: "100%",
+  gap: "4rem",
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+    gap: "2rem",
+  },
+}));
+
 export default PublicLayout;
