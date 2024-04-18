@@ -1,5 +1,5 @@
-import ToastContent from "models/toast/ToastContent";
 import { Action, ThunkAction } from "@reduxjs/toolkit";
+import ToastContent from "../../../models/toast/ToastContent";
 import { RootState } from "../../configureStore";
 import { toastSlice } from "./slice";
 
@@ -27,4 +27,5 @@ const clearAll =
     dispatch(toastActions.clearToasts());
   };
 
-export { addToast, closeToast, removeToast, clearAll };
+export { addToast, clearAll, closeToast, removeToast };
+

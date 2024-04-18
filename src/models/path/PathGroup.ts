@@ -1,6 +1,5 @@
-/* eslint-disable no-undef */
-import PathItem from "models/path/PathItem";
 import { ReactNode } from "react";
+import PathItem from "./PathItem";
 
 interface PathGroup {
   layout: ReactNode;

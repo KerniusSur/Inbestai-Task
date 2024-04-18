@@ -1,5 +1,4 @@
 import { Box, Collapse, styled, Typography, useTheme } from "@mui/material";
-import PostCodeContent from "models/postcode/PostCodeContent";
 import { ChangeEvent, useEffect, useState } from "react";
 import { TransitionGroup } from "react-transition-group";
 import InbestBackgroundWidget from "../components/InbestBackgroundWidget";
@@ -7,9 +6,10 @@ import InbestButton from "../components/InbestButton";
 import InbestCard from "../components/InbestCard";
 import InbestInput from "../components/InbestInput";
 import { useAppSelector } from "../hooks/reduxHooks";
+import { PageInnerContainer } from "../layouts/PublicLayout";
+import PostCodeContent from "../models/postcode/PostCodeContent";
 import postcodes from "../store/postcodes";
 import toast from "../store/toast";
-import { PageInnerContainer } from "../layouts/PublicLayout";
 
 const HomePage = () => {
   const postcodeState = useAppSelector((state) => state.postcodes);
