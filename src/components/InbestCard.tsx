@@ -69,7 +69,6 @@ const InbestCard = (props: InbestCardProps) => {
           },
         }}
       />
-
       <Collapse in={isExpanded} timeout="auto" unmountOnExit>
         {image && (
           <CardMedia
@@ -134,6 +133,7 @@ const CardContainer = styled(Card)({
   width: "100%",
   borderRadius: 16,
   minWidth: "100%",
+  boxSizing: "border-box",
 });
 
 const CardContentContainer = styled(CardContent)({

@@ -7,25 +7,24 @@
   left: 25%;
   top: 45%;
   width: 450px;
-
   transform: translate(var(--translateX), var(--translateY));
 }
 
 @media (max-width: 1280px) {
   .widget-container {
-    left: "40%";
+    left: 40%;
   }
 }
 
 @media (max-width: 768px) {
   .widget-container {
-    width: "300px";
+    width: 300px;
   }
 }
 
 @media (max-width: 600px) {
   .widget-container {
-    display: "none";
+    display: none;
   }
 }
 
