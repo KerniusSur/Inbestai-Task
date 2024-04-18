@@ -114,30 +114,29 @@ const InbestNavbar = (props: InbestNavbarProps) => {
   );
 };
 
-const NavBarTextButton = styled(Typography)(
-  ({ isHeaderMinimized }: { isHeaderMinimized?: boolean }) =>
-    ({ theme }) => ({
-      cursor: "pointer",
-      display: "inline-block",
-      textDecoration: "none",
-      "&:after": {
-        content: '""',
-        display: "block",
-        width: 0,
-        height: "2px",
-        background: isHeaderMinimized
-          ? theme.palette.primary.main
-          : theme.palette.secondary.main,
-        transition: "width .3s ease-in-out",
-      },
-      "&:hover": {
-        opacity: 0.8,
-        "&:after": {
-          width: "100%",
-        },
-      },
-    })
-);
+const NavBarTextButton = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== "isHeaderMinimized",
+})<{ isHeaderMinimized: boolean }>(({ theme, isHeaderMinimized }) => ({
+  cursor: "pointer",
+  display: "inline-block",
+  textDecoration: "none",
+  "&:after": {
+    content: '""',
+    display: "block",
+    width: 0,
+    height: "2px",
+    background: isHeaderMinimized
+      ? theme.palette.primary.main
+      : theme.palette.secondary.main,
+    transition: "width .3s ease-in-out",
+  },
+  "&:hover": {
+    opacity: 0.8,
+    "&:after": {
+      width: "100%",
+    },
+  },
+}));
 
 const NavBarContainer = styled(Container)(({ theme }) => ({
   display: "flex",
