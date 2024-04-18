@@ -18,5 +18,5 @@
     "outDir": "./dist",
     "allowImportingTsExtensions": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*"]
 }

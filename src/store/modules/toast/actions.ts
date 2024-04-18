@@ -28,4 +28,3 @@ const clearAll =
   };
 
 export { addToast, clearAll, closeToast, removeToast };
-
