@@ -1,31 +1,19 @@
 import { Box, styled } from "@mui/material";
-import { useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import InbestFooter from "../components/InbestFooter";
 import InbestNavbar from "../components/InbestNavbar";
 
-const drawerWidth = 320;
+const drawerWidth = 300;
 
 const PublicLayout = () => {
-  const location = useLocation();
-  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-
   return (
     <FlexBox>
       <PageContainer>
-        <InbestNavbar
-          isDrawerOpen={isDrawerOpen}
-          drawerWidth={drawerWidth}
-          setIsDrawerOpen={setIsDrawerOpen}
-        />
+        <InbestNavbar drawerWidth={drawerWidth} />
         <ContentContainer>
           <Outlet />
         </ContentContainer>
-        <InbestFooter
-          showBottomShape={
-            location.pathname === "/404" || location.pathname === "/404/"
-          }
-        />
+        <InbestFooter />
       </PageContainer>
     </FlexBox>
   );
@@ -56,6 +44,21 @@ export const ContentContainer = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down("sm")]: {
     padding: "1.5rem 1rem 3rem 1rem",
+  },
+  minWidth: theme.breakpoints.values.xs,
+}));
+
+export const PageInnerContainer = styled(Box)(({ theme }) => ({
+  display: "flex",
+  boxSizing: "border-box",
+  maxWidth: "1600px",
+  justifyContent: "center",
+  width: "100%",
+  height: "100%",
+  gap: "4rem",
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+    gap: "2rem",
   },
 }));
 

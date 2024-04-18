@@ -10,19 +10,7 @@ interface InbestButtonProps extends ButtonProps {
 const InbestButton = (props: InbestButtonProps) => {
   const { text, startIcon, fullWidth, endIcon, ...other } = props;
   return (
-    <Button
-      fullWidth={fullWidth}
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        textTransform: "none !important",
-        gap: "12px",
-        "&:hover": {
-          cursor: other.disabled ? "not-allowed" : "pointer",
-        },
-      }}
-      {...other}
-    >
+    <Button fullWidth={fullWidth} {...other}>
       {startIcon}
       <Typography variant="button">{text}</Typography>
       {endIcon}

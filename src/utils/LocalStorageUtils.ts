@@ -1,3 +1,6 @@
+import PostCodeState from "../models/postcode/PostCodeState";
+import ToastState from "../models/toast/ToastState";
+
 export const KEY = "REDUX_STATE";
 
 const LocalStorageUtils = {
@@ -7,13 +10,19 @@ const LocalStorageUtils = {
       if (!serializedState) {
         return undefined;
       }
-      return JSON.parse(serializedState);
+
+      const state: Partial<{
+        toasts: ToastState;
+        postcodes: PostCodeState;
+      }> = JSON.parse(serializedState);
+
+      return state;
     } catch (e) {
       return undefined;
     }
   },
 
-  saveState: (state: any): void => {
+  saveState: async (state: any): Promise<void> => {
     try {
       const serializedState = JSON.stringify(state);
       localStorage.setItem(KEY, serializedState);

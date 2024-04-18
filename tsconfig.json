@@ -18,6 +18,5 @@
     "outDir": "./dist",
     "allowImportingTsExtensions": true
   },
-  "include": ["src/**/*"],
-  "extends": "./tsconfig.paths.json"
+  "include": ["src/**/*"]
 }

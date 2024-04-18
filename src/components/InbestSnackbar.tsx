@@ -7,41 +7,49 @@ import {
   Snackbar,
   Typography,
 } from "@mui/material";
-import { SyntheticEvent } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
+import { handleNewLine } from "../components/InbestCard";
 import { useAppSelector } from "../hooks/reduxHooks";
-import toasts from "../store/toast";
+import ToastContent from "../models/toast/ToastContent";
+import toast from "../store/toast";
 
 const InbestSnackbar = () => {
-  const toast = useAppSelector((state) => state.toasts.toast);
-  const isToastOpen = useAppSelector((state) => state.toasts.toast?.open);
+  const { toasts } = useAppSelector((state) => state.toasts);
+  const [currentToast, setCurrentToast] = useState<ToastContent | null>(null);
 
   const handleClose = (event?: SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
 
-    if (!toast) {
-      return;
+    if (currentToast) {
+      toast.close(currentToast);
     }
-
-    toasts.closeToast(toast);
   };
+
+  useEffect(() => {
+    if (toasts.length > 0) {
+      setCurrentToast(toasts[0]);
+    }
+  }, [toasts]);
 
   return (
     <Snackbar
-      open={isToastOpen}
-      autoHideDuration={5000}
+      open={currentToast?.open ?? false}
+      disableWindowBlurListener
+      autoHideDuration={4000}
       TransitionComponent={SlideTransition}
       onClose={handleClose}
       anchorOrigin={{
         vertical: "top",
         horizontal: "left",
       }}
+      aria-label="Notification"
     >
       <Alert
         variant="filled"
-        severity={toast?.severity}
-        sx={{ width: "100%", display: "flex", alignItems: "center" }}
+        severity={currentToast?.severity}
+        onClose={handleClose}
         action={
           <IconButton
             key="close"
@@ -49,11 +57,15 @@ const InbestSnackbar = () => {
             color="inherit"
             onClick={handleClose}
           >
-            <CloseOutlined />
+            <CloseOutlined key="close" aria-label="close" />
           </IconButton>
         }
+        role="alert"
+        aria-live="assertive"
       >
-        <Typography variant="body2">{toast?.message}</Typography>
+        <Typography variant="body2">
+          {handleNewLine(currentToast?.message)}
+        </Typography>
       </Alert>
     </Snackbar>
   );

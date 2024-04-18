@@ -1,16 +1,22 @@
-import { useEffect } from "react";
-import "../styles/WidgetStyles.css";
+import { Property } from "csstype";
+import { CSSProperties, useEffect } from "react";
 import InbestWidgetIcon1 from "../assets/inbest-widget-1.svg";
 import InbestWidgetIcon2 from "../assets/inbest-widget-2.svg";
+import "../styles/WidgetStyles.css";
 
 interface InbestBackgroundInteractiveWidgetProps {
   iconNumber?: number;
+  widgetPosition?: Extract<
+    CSSProperties,
+    | { left?: Property.Left<string | number> | undefined }
+    | { top?: Property.Top<string | number> | undefined }
+  >;
 }
 
-const InbestBackgroundInteractiveWidget = (
+const InbestBackgroundWidget = (
   props: InbestBackgroundInteractiveWidgetProps
 ) => {
-  const { iconNumber = 1 } = props;
+  const { iconNumber = 1, widgetPosition } = props;
 
   useEffect(() => {
     const root = document.getElementById("root") as HTMLElement;
@@ -38,7 +44,14 @@ const InbestBackgroundInteractiveWidget = (
   }, []);
 
   return (
-    <div id="widget-container" className="widget-container">
+    <div
+      id="widget-container"
+      className="widget-container"
+      style={{
+        left: widgetPosition?.left,
+        top: widgetPosition?.top,
+      }}
+    >
       <img
         className="widget-icon"
         src={(iconNumber === 1 ? InbestWidgetIcon1 : InbestWidgetIcon2) as any}
@@ -48,4 +61,4 @@ const InbestBackgroundInteractiveWidget = (
   );
 };
 
-export default InbestBackgroundInteractiveWidget;
+export default InbestBackgroundWidget;

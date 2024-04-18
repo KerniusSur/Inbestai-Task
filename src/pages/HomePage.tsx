@@ -1,33 +1,40 @@
-import { Box, Collapse, styled, Typography } from "@mui/material";
-import PostCodeContent from "models/postcode/PostCodeContent";
+import { Box, Collapse, styled, Typography, useTheme } from "@mui/material";
 import { ChangeEvent, useEffect, useState } from "react";
 import { TransitionGroup } from "react-transition-group";
-import InbestBackgroundInteractiveWidget from "../components/InbestBackgroundInteractiveWidget";
+import InbestBackgroundWidget from "../components/InbestBackgroundWidget";
 import InbestButton from "../components/InbestButton";
 import InbestCard from "../components/InbestCard";
 import InbestInput from "../components/InbestInput";
 import { useAppSelector } from "../hooks/reduxHooks";
+import { PageInnerContainer } from "../layouts/PublicLayout";
+import PostCodeContent from "../models/postcode/PostCodeContent";
 import postcodes from "../store/postcodes";
+import toast from "../store/toast";
 
 const HomePage = () => {
-  const postCodeState = useAppSelector((state) => state.postcodes);
+  const postcodeState = useAppSelector((state) => state.postcodes);
+  const theme = useTheme();
   const [postcode, setPostcode] = useState<string>("");
   const [expandedCards, setExpandedCards] = useState<string[]>([]);
-  const [postcodeList, setPostcodeList] = useState<PostCodeContent[]>(
-    postCodeState.postcodes
-  );
+  const [postcodeList, setPostcodeList] = useState<PostCodeContent[]>([]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPostcode(event.target.value);
   };
 
   useEffect(() => {
-    setPostcodeList(postCodeState.postcodes);
+    const postcodeList = postcodeState.postcodes ?? [];
+    setPostcodeList(postcodeList);
     setPostcode("");
-    if (postCodeState.postcodes.length > 0) {
-      setExpandedCards((prev) => [...prev, postCodeState.postcodes[0].id]);
+    if (postcodeList.length > 0) {
+      if (postcodeList.length > 5) {
+        setExpandedCards([postcodeState.postcodes[0].id]);
+        return;
+      }
+
+      setExpandedCards((prev) => [...prev, postcodeState.postcodes[0].id]);
     }
-  }, [postCodeState.postcodes]);
+  }, [postcodeState.postcodes]);
 
   const handleSearch = () => {
     postcodes.lookup(postcode);
@@ -42,8 +49,12 @@ const HomePage = () => {
   };
 
   return (
-    <HomePageContainer>
-      <InbestBackgroundInteractiveWidget />
+    <PageInnerContainer
+      sx={{
+        gap: postcodeState.postcodes.length > 0 ? "2rem" : "0",
+      }}
+    >
+      <InbestBackgroundWidget />
       <HomePageSearchContainer
         sx={{
           flex: postcodeList.length > 0 ? 1 : 2,
@@ -54,6 +65,9 @@ const HomePage = () => {
           sx={{
             alignSelf: "flex-start",
             paddingBottom: "1rem",
+            [theme.breakpoints.down("md")]: {
+              paddingBottom: "0",
+            },
           }}
           variant="h4"
         >
@@ -101,23 +115,9 @@ const HomePage = () => {
           ))}
         </TransitionGroup>
       </Box>
-    </HomePageContainer>
+    </PageInnerContainer>
   );
 };
-
-export const HomePageContainer = styled(Box)(({ theme }) => ({
-  display: "flex",
-  boxSizing: "border-box",
-  maxWidth: "1600px",
-  justifyContent: "space-between",
-  width: "100%",
-  height: "100%",
-  gap: "4rem",
-  [theme.breakpoints.down("md")]: {
-    flexDirection: "column",
-    gap: "2rem",
-  },
-}));
 
 export const HomePageSearchContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -131,8 +131,13 @@ export const HomePageSearchContainer = styled(Box)(({ theme }) => ({
   boxSizing: "border-box",
   backgroundColor: "white",
   height: "fit-content",
+  minHeight: "376px",
   [theme.breakpoints.down("md")]: {
     flex: 0,
+    gap: "1.5rem",
+  },
+  [theme.breakpoints.down("sm")]: {
+    gap: "1rem",
   },
 }));
 
@@ -143,6 +148,7 @@ const renderItem = (
 ) => {
   const handleDelete = (postcode: PostCodeContent) => {
     postcodes.remove(postcode);
+    toast.success("Postcode deleted successfully");
   };
 
   return (

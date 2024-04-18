@@ -1,33 +1,40 @@
 import { MenuOutlined } from "@mui/icons-material";
-import { AppBar, Box, Hidden, IconButton, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import {
+  AppBar,
+  Box,
+  Container,
+  Hidden,
+  IconButton,
+  styled,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InbestExerciseLogo from "../assets/inbest-exercise-logo.svg";
 import InbestDrawer from "../components/InbestDrawer";
 
 interface InbestNavbarProps {
-  isDrawerOpen: boolean;
   drawerWidth: number;
-  setIsDrawerOpen: (isDrawerOpen: boolean) => void;
 }
 
 const InbestNavbar = (props: InbestNavbarProps) => {
-  const { isDrawerOpen, drawerWidth, setIsDrawerOpen } = props;
+  const { drawerWidth } = props;
 
   const navigate = useNavigate();
+  const isBelowMd = useMediaQuery("(max-width: 768px)");
 
   const [isHeaderMinimized, setIsHeaderMinimized] = useState<boolean>(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+
+  const listenScrollEvent = useCallback(() => {
+    setIsHeaderMinimized(window.scrollY > 50);
+  }, []);
 
   useEffect(() => {
-    const listenScrollEvent = (event: Event) => {
-      if (typeof window !== "undefined") {
-        setIsHeaderMinimized(window.scrollY > 50);
-      }
-    };
-
     window.addEventListener("scroll", listenScrollEvent);
     return () => window.removeEventListener("scroll", listenScrollEvent);
-  }, []);
+  }, [listenScrollEvent]);
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
@@ -43,44 +50,28 @@ const InbestNavbar = (props: InbestNavbarProps) => {
           : "primary.main",
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "100%",
-          boxSizing: "border-box",
-          padding: "16px 32px",
-        }}
-      >
+      <NavBarContainer>
         <Box
           sx={{
             display: "flex",
-            alignItems: "center",
             justifyContent: "space-between",
-            gap: "2rem",
+            alignItems: "center",
             width: "100%",
+            gap: "2rem",
           }}
         >
           <Box
             sx={{
-              "&:hover": {
-                cursor: "pointer",
-              },
+              cursor: "pointer",
+              height: "42px",
             }}
+            component={"img"}
+            src={InbestExerciseLogo as any}
+            alt="inbest-exercise-logo"
             onClick={() => {
               navigate("/");
             }}
-          >
-            <img
-              style={{
-                height: "42px",
-              }}
-              alt="inbest-exercise-logo"
-              src={InbestExerciseLogo as any}
-            />
-          </Box>
-
+          />
           <Hidden mdDown>
             <Box
               sx={{
@@ -90,40 +81,29 @@ const InbestNavbar = (props: InbestNavbarProps) => {
               }}
             >
               {navbarNavigationItems.map((item) => (
-                <Typography
+                <NavBarTextButton
                   key={item.path}
                   variant="h5"
+                  isHeaderMinimized={isHeaderMinimized}
                   onClick={() => {
                     navigate(item.path);
                   }}
                   sx={{
-                    cursor: "pointer",
+                    transition: "opacity .2s ease-in-out",
                   }}
                 >
                   {item.label}
-                </Typography>
+                </NavBarTextButton>
               ))}
             </Box>
           </Hidden>
-
-          <Hidden mdUp>
-            <IconButton
-              sx={{
-                "&:hover": {
-                  cursor: "pointer",
-                },
-              }}
-              onClick={toggleDrawer}
-            >
-              <MenuOutlined
-                sx={{
-                  color: "secondary.main",
-                }}
-              />
+          {isBelowMd && (
+            <IconButton onClick={toggleDrawer}>
+              <MenuOutlined color="secondary" />
             </IconButton>
-          </Hidden>
+          )}
         </Box>
-      </Box>
+      </NavBarContainer>
       <InbestDrawer
         isDrawerOpen={isDrawerOpen}
         toggleDrawer={toggleDrawer}
@@ -133,12 +113,49 @@ const InbestNavbar = (props: InbestNavbarProps) => {
   );
 };
 
+const NavBarTextButton = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== "isHeaderMinimized",
+})<{ isHeaderMinimized: boolean }>(({ theme, isHeaderMinimized }) => ({
+  cursor: "pointer",
+  display: "inline-block",
+  textDecoration: "none",
+  "&:after": {
+    content: '""',
+    display: "block",
+    width: 0,
+    height: "2px",
+    background: isHeaderMinimized
+      ? theme.palette.primary.main
+      : theme.palette.secondary.main,
+    transition: "width .3s ease-in-out",
+  },
+  "&:hover": {
+    opacity: 0.8,
+    "&:after": {
+      width: "100%",
+    },
+  },
+}));
+
+const NavBarContainer = styled(Container)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  maxWidth: "1600px !important",
+  width: "100%",
+  boxSizing: "border-box",
+  padding: "1rem 3rem 1rem 3rem !important",
+  [theme.breakpoints.down("sm")]: {
+    padding: "1rem 2rem 1rem 1rem !important",
+  },
+}));
+
 export interface NavbarNavigationItem {
   label: string;
   path: string;
 }
 
-export const navbarNavigationItems = [
+export const navbarNavigationItems: NavbarNavigationItem[] = [
   {
     label: "Home",
     path: "/",

@@ -1,4 +1,4 @@
-import PostCodeContent from "models/postcode/PostCodeContent";
+import PostCodeContent from "./PostCodeContent";
 
 interface PostCodeState {
   postcodes: PostCodeContent[];

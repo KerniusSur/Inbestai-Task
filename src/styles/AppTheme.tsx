@@ -14,7 +14,6 @@ const initialTheme = createTheme({
   palette: {
     primary: {
       main: "#F7DB00",
-      dark: "DEC500",
       contrastText: "#222222",
     },
     secondary: {
@@ -41,9 +40,15 @@ const AppTheme = createTheme(initialTheme, {
     MuiButton: {
       styleOverrides: {
         root: {
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
           padding: "18px 32px",
           borderRadius: "15px",
           boxShadow: "none",
+          "&.Mui-disabled": {
+            cursor: "not-allowed",
+          },
         },
         outlined: {
           border: "1px solid #222222",
@@ -89,15 +94,7 @@ const AppTheme = createTheme(initialTheme, {
           boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.5)",
           height: "80px",
           minHeight: "none",
-          with: "100%",
-        },
-      },
-    },
-    MuiToolbar: {
-      styleOverrides: {
-        root: {
-          height: "80px",
-          boxShadow: "none",
+          width: "100%",
         },
       },
     },
@@ -105,6 +102,20 @@ const AppTheme = createTheme(initialTheme, {
       styleOverrides: {
         root: {
           borderRadius: "12px",
+        },
+      },
+    },
+    MuiAlert: {
+      styleOverrides: {
+        action: {
+          alignSelf: "center",
+          paddingTop: "0px",
+        },
+        message: {
+          alignSelf: "center",
+        },
+        icon: {
+          alignSelf: "center",
         },
       },
     },
@@ -168,7 +179,7 @@ const AppTheme = createTheme(initialTheme, {
         fontSize: "36px",
       },
       [initialTheme.breakpoints.down("sm")]: {
-        fontSize: "32px",
+        fontSize: "27px",
       },
     },
     h5: {
@@ -206,6 +217,20 @@ const AppTheme = createTheme(initialTheme, {
       fontWeight: 500,
       fontStyle: "normal",
       textTransform: "none",
+    },
+    hyperlink: {
+      fontFamily: "Roboto, Sans-serif",
+      fontSize: "16px",
+      lineHeight: "20px",
+      fontStyle: "normal",
+      letterSpacing: "0",
+      fontWeight: 500,
+      textDecoration: "underline",
+      cursor: "pointer",
+      color: initialTheme.palette.primary.main,
+      "&:hover": {
+        color: initialTheme.palette.primary.dark,
+      },
     },
   },
 });

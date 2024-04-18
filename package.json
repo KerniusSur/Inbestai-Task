@@ -40,21 +40,7 @@
       "plugin:react-hooks/recommended"
     ],
     "rules": {
-      "react/react-in-jsx-scope": "off",
-      "no-unused-vars": "off"
-    },
-    "settings": {
-      "import/resolver": {
-        "typescript": {},
-        "node": {
-          "extensions": [
-            ".js",
-            ".jsx",
-            ".ts",
-            ".tsx"
-          ]
-        }
-      }
+      "react/react-in-jsx-scope": "off"
     }
   },
   "browserslist": {
