@@ -1,14 +1,14 @@
 import { CloseRounded } from "@mui/icons-material";
 import {
   Box,
-  Button,
   Drawer,
   IconButton,
-  ListItem,
-  styled,
+  List,
+  ListItemButton,
+  Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { DrawerHeader } from "../layouts/PublicLayout";
+import { navbarNavigationItems } from "../components/InbestNavbar";
 
 interface InbestDrawerProps {
   isDrawerOpen: boolean;
@@ -18,7 +18,7 @@ interface InbestDrawerProps {
 
 const InbestDrawer = (props: InbestDrawerProps) => {
   const { isDrawerOpen, drawerWidth, toggleDrawer } = props;
-
+  const navigate = useNavigate();
   return (
     <Drawer
       open={isDrawerOpen}
@@ -26,6 +26,9 @@ const InbestDrawer = (props: InbestDrawerProps) => {
       variant="temporary"
       onClose={toggleDrawer}
       sx={{
+        display: "flex",
+        flexDirection: "column",
+
         width: drawerWidth,
         flexShrink: 0,
         "& .MuiDrawer-paper": {
@@ -34,101 +37,54 @@ const InbestDrawer = (props: InbestDrawerProps) => {
         },
       }}
     >
-      <DrawerHeader
+      <Box
         sx={{
-          paddingTop: "16px",
-          justifyContent: "space-between",
-          width: "100%",
+          display: "flex",
+          padding: "16px",
+          boxSizing: "border-box",
         }}
       >
         <IconButton onClick={toggleDrawer}>
-          <CloseRounded />
+          <CloseRounded
+            sx={{
+              color: "secondary.main",
+              width: "24px",
+              height: "24px",
+            }}
+          />
         </IconButton>
-      </DrawerHeader>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          width: "100%",
-          justifyContent: "center",
-          padding: "24px 0px",
-          height: "24px",
-        }}
-      ></Box>
-      <Box
+      </Box>
+
+      <List
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: "12px",
-          padding: "24px 0px",
+          width: "100%",
+          borderTop: "1px solid rgba(0, 0, 0, 0.1)",
         }}
       >
-        <DrawerContent />
-      </Box>
+        {navbarNavigationItems.map((item) => (
+          <ListItemButton
+            key={item.path}
+            onClick={() => {
+              navigate(item.path);
+              toggleDrawer();
+            }}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              padding: "1rem",
+              boxSizing: "border-box",
+            }}
+          >
+            <Typography variant="h5">{item.label}</Typography>
+          </ListItemButton>
+        ))}
+      </List>
     </Drawer>
   );
 };
-
-interface DrawerContentProps {}
-
-const DrawerContent = (props: DrawerContentProps) => {
-  const navigate = useNavigate();
-
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "12px",
-        padding: "24px 0px",
-      }}
-    >
-      <Box
-        component={Button}
-        onClick={() => navigate("/postcode/create")}
-        sx={{
-          borderRadius: "0px",
-          "&:hover": {
-            cursor: "pointer",
-          },
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "flex-start",
-            gap: "8px",
-          }}
-        >
-          {/* <AddToPhotosRounded />
-          <Typography variant="body1">Add new postcode</Typography> */}
-        </Box>
-      </Box>
-      <Box
-        onClick={() => navigate("/postcode/history")}
-        sx={{
-          borderRadius: "0px",
-          "&:hover": {
-            cursor: "pointer",
-          },
-        }}
-      >
-        {/* <Typography variant="body1">History</Typography> */}
-      </Box>
-    </Box>
-  );
-};
-
-export const ListNoteItem = styled(ListItem)(({ theme }) => {
-  return {
-    boxSizing: "border-box",
-    padding: "0px",
-    paddingRight: "8px",
-    "&:hover": {
-      cursor: "pointer",
-    },
-  };
-});
 
 export default InbestDrawer;

@@ -11,8 +11,7 @@
       "models/*": ["./models/*"],
       "pages/*": ["./pages/*"],
       "store/*": ["./store/*"],
-      "utils/*": ["./utils/*"],
-      "theme/*": ["./theme/*"]
+      "utils/*": ["./utils/*"]
     }
   }
 }

@@ -1,6 +1,5 @@
-import HomePage from "../pages/HomePage";
 import PathItem from "../models/path/PathItem";
-import PostCodePage from "../pages/PostcodePage";
+import HomePage from "../pages/HomePage";
 import Page404 from "../pages/Page404";
 
 const routes: PathItem[] = [
@@ -8,11 +7,7 @@ const routes: PathItem[] = [
     path: "/",
     element: <HomePage />,
     tag: "home",
-  },
-  {
-    path: "/postcodes",
-    element: <PostCodePage />,
-    tag: "postcodes",
+    showReactiveWidgets: true,
   },
   {
     path: "/404",

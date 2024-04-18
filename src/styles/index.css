@@ -1,13 +1,15 @@
 html,
 body {
   font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
   height: 100%;
-  overflow-y: auto;
 }
 
 #root {
+  --translateX: 0px;
+  --translateY: 0px;
   height: 100%;
-  overflow-y: auto;
 }
 
 /* Hide the webpack-dev-server client error overlay */

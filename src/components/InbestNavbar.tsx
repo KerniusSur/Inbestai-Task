@@ -1,7 +1,5 @@
 import { MenuOutlined } from "@mui/icons-material";
-import { Box, Divider, IconButton, styled, Typography } from "@mui/material";
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-
+import { AppBar, Box, Hidden, IconButton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InbestExerciseLogo from "../assets/inbest-exercise-logo.svg";
@@ -23,7 +21,7 @@ const InbestNavbar = (props: InbestNavbarProps) => {
   useEffect(() => {
     const listenScrollEvent = (event: Event) => {
       if (typeof window !== "undefined") {
-        setIsHeaderMinimized(window.scrollY > 150);
+        setIsHeaderMinimized(window.scrollY > 50);
       }
     };
 
@@ -36,61 +34,54 @@ const InbestNavbar = (props: InbestNavbarProps) => {
   };
 
   return (
-    <Box
+    <AppBar
+      position="sticky"
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
+        transition: "background-color 1s ease",
+        backgroundColor: isHeaderMinimized
+          ? "background.paper"
+          : "primary.main",
       }}
     >
-      <AppBar
-        position="fixed"
-        open={isDrawerOpen}
+      <Box
         sx={{
-          transition: "background-color 1s ease",
-          backgroundColor: isHeaderMinimized
-            ? "background.paper"
-            : "primary.main",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+          boxSizing: "border-box",
+          padding: "16px 32px",
         }}
       >
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-between",
             alignItems: "center",
+            justifyContent: "space-between",
+            gap: "2rem",
             width: "100%",
-            boxSizing: "border-box",
-            padding: "16px 32px",
           }}
         >
           <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: "2rem",
-              width: "100%",
+              "&:hover": {
+                cursor: "pointer",
+              },
+            }}
+            onClick={() => {
+              navigate("/");
             }}
           >
-            <Box
-              sx={{
-                "&:hover": {
-                  cursor: "pointer",
-                },
+            <img
+              style={{
+                height: "42px",
               }}
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              <img
-                style={{
-                  height: "42px",
-                }}
-                alt="inbest-exercise-logo"
-                src={InbestExerciseLogo as any}
-              />
-            </Box>
+              alt="inbest-exercise-logo"
+              src={InbestExerciseLogo as any}
+            />
+          </Box>
 
+          <Hidden mdDown>
             <Box
               sx={{
                 display: "flex",
@@ -98,49 +89,24 @@ const InbestNavbar = (props: InbestNavbarProps) => {
                 gap: "2.5rem",
               }}
             >
-              <Typography
-                variant="h5"
-                onClick={() => {
-                  navigate("/");
-                }}
-                sx={{
-                  "&:hover": {
+              {navbarNavigationItems.map((item) => (
+                <Typography
+                  key={item.path}
+                  variant="h5"
+                  onClick={() => {
+                    navigate(item.path);
+                  }}
+                  sx={{
                     cursor: "pointer",
-                  },
-                }}
-              >
-                Home
-              </Typography>
-
-              <Typography
-                variant="h5"
-                onClick={() => {
-                  navigate("/non-existent-route");
-                }}
-                sx={{
-                  "&:hover": {
-                    cursor: "pointer",
-                  },
-                }}
-              >
-                404
-              </Typography>
-
-              <Typography
-                variant="h5"
-                onClick={() => {
-                  navigate("/contact");
-                }}
-                sx={{
-                  "&:hover": {
-                    cursor: "pointer",
-                  },
-                }}
-              >
-                Contact
-              </Typography>
+                  }}
+                >
+                  {item.label}
+                </Typography>
+              ))}
             </Box>
+          </Hidden>
 
+          <Hidden mdUp>
             <IconButton
               sx={{
                 "&:hover": {
@@ -151,46 +117,40 @@ const InbestNavbar = (props: InbestNavbarProps) => {
             >
               <MenuOutlined
                 sx={{
-                  color: "#000",
+                  color: "secondary.main",
                 }}
               />
             </IconButton>
-          </Box>
+          </Hidden>
         </Box>
-      </AppBar>
+      </Box>
       <InbestDrawer
         isDrawerOpen={isDrawerOpen}
         toggleDrawer={toggleDrawer}
         drawerWidth={drawerWidth}
       />
-      <Divider
-        sx={{
-          width: "calc(100% + 160px)",
-          marginLeft: "-160px",
-          borderColor: "#0E0E0E",
-        }}
-      />
-    </Box>
+    </AppBar>
   );
 };
 
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
+export interface NavbarNavigationItem {
+  label: string;
+  path: string;
 }
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})<AppBarProps>(({ theme, open }) => ({
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
+export const navbarNavigationItems = [
+  {
+    label: "Home",
+    path: "/",
+  },
+  {
+    label: "404",
+    path: "/non-existent-route",
+  },
+  {
+    label: "Contact",
+    path: "/contact",
+  },
+];
 
 export default InbestNavbar;

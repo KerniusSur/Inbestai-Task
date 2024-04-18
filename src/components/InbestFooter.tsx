@@ -1,5 +1,5 @@
 import { Container, Paper, Typography } from "@mui/material";
-import ElementorBottomShape from "../assets/elementor-bottom-shape.svg";
+import ElementorBottomShape from "../assets/inbest-bottom-shape.svg";
 import InbestExerciseHorizontalLogo from "../assets/inbest-exercise-horizontal-logo.svg";
 
 interface InbestFooterProps {
@@ -11,25 +11,16 @@ const InbestFooter = (props: InbestFooterProps) => {
   return (
     <Paper
       square
-      variant={!showBottomShape ? "outlined" : "elevation"}
       component="footer"
+      variant={!showBottomShape ? "outlined" : "elevation"}
       sx={{
-        width: "100%",
-        position: "fixed",
-        bottom: 0,
-        border: showBottomShape ? "none" : "1px solid rgba(0, 0, 0, 0.1)",
+        borderTop: showBottomShape ? "none" : "1px solid rgba(0, 0, 0, 0.1)",
         boxShadow: "none",
-        zIndex: 9,
+        width: "calc(100% - 2px)",
       }}
     >
       {showBottomShape && (
-        <img
-          src={ElementorBottomShape as any}
-          alt="Elementor Bottom Shape"
-          style={{
-            borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
-          }}
-        />
+        <img src={ElementorBottomShape as any} alt="Elementor Bottom Shape" />
       )}
       <Container
         sx={{
@@ -39,6 +30,8 @@ const InbestFooter = (props: InbestFooterProps) => {
           padding: "1rem 3rem !important",
           boxSizing: "border-box",
           maxWidth: "1400px",
+          gap: "1rem",
+          flexWrap: "wrap",
         }}
       >
         <Typography variant="h6" textAlign="center">

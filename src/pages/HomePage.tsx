@@ -1,19 +1,18 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Collapse, styled, Typography } from "@mui/material";
 import PostCodeContent from "models/postcode/PostCodeContent";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { TransitionGroup } from "react-transition-group";
+import InbestBackgroundInteractiveWidget from "../components/InbestBackgroundInteractiveWidget";
 import InbestButton from "../components/InbestButton";
+import InbestCard from "../components/InbestCard";
 import InbestInput from "../components/InbestInput";
-import InbestPostcodeTransitionGroup, {
-  InbestPostcodeCardTransitionGroup,
-} from "../components/InbestPostcodeTransitionGroup";
 import { useAppSelector } from "../hooks/reduxHooks";
 import postcodes from "../store/postcodes";
 
 const HomePage = () => {
   const postCodeState = useAppSelector((state) => state.postcodes);
-  const inputContainerRef = useRef<HTMLDivElement>(null);
-
   const [postcode, setPostcode] = useState<string>("");
+  const [expandedCards, setExpandedCards] = useState<string[]>([]);
   const [postcodeList, setPostcodeList] = useState<PostCodeContent[]>(
     postCodeState.postcodes
   );
@@ -25,42 +24,31 @@ const HomePage = () => {
   useEffect(() => {
     setPostcodeList(postCodeState.postcodes);
     setPostcode("");
+    if (postCodeState.postcodes.length > 0) {
+      setExpandedCards((prev) => [...prev, postCodeState.postcodes[0].id]);
+    }
   }, [postCodeState.postcodes]);
 
   const handleSearch = () => {
     postcodes.lookup(postcode);
   };
 
-  const handleDelete = (postcode: PostCodeContent) => {
-    postcodes.remove(postcode);
+  const handleExpandClick = (id: string) => {
+    if (expandedCards.includes(id)) {
+      setExpandedCards(expandedCards.filter((cardIndex) => cardIndex !== id));
+      return;
+    }
+    setExpandedCards([...expandedCards, id]);
   };
 
   return (
-    <Box
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        width: "100%",
-        gap: "1rem",
-        marginTop: "6rem",
-        marginBottom: "104px",
-      }}
-    >
-      <Box
+    <HomePageContainer>
+      <InbestBackgroundInteractiveWidget />
+      <HomePageSearchContainer
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-end",
-          width: "100%",
-          padding: "1.5rem 3rem",
-          boxSizing: "border-box",
-          boxShadow: "0px 0px 50px 0px rgba(0, 0, 0, 0.19)",
-          borderRadius: "16px",
-          backgroundColor: "background.paper",
-          marginBottom: "4rem",
+          flex: postcodeList.length > 0 ? 1 : 2,
+          transition: "flex .4s ease-in-out",
         }}
-        ref={inputContainerRef}
       >
         <Typography
           sx={{
@@ -77,28 +65,108 @@ const HomePage = () => {
           fullWidth
           placeholder="Enter a postcode..."
           onChange={handleChange}
+          onEnterKeyPress={handleSearch}
         />
         <InbestButton
+          fullWidth
           disabled={postcode.length === 0}
           sx={{
-            marginTop: "1rem",
-            maxWidth: "200px",
+            marginTop: "auto",
           }}
-          fullWidth={false}
           variant="outlined"
           text="Search"
           onClick={() => {
             handleSearch();
           }}
         />
+      </HomePageSearchContainer>
+      <Box
+        sx={{
+          flex: postcodeList.length > 0 ? 2 : 0.001,
+          transition: "flex 1s",
+        }}
+      >
+        <TransitionGroup
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1.5rem",
+            width: "100%",
+          }}
+        >
+          {postcodeList.map((postcode) => (
+            <Collapse key={postcode.id} timeout={600} unmountOnExit>
+              {renderItem(postcode, expandedCards, handleExpandClick)}
+            </Collapse>
+          ))}
+        </TransitionGroup>
       </Box>
+    </HomePageContainer>
+  );
+};
 
-      {/* <InbestPostcodeTransitionGroup
-        postcodes={postcodeList}
-        handleDelete={handleDelete}
-      /> */}
-      <InbestPostcodeCardTransitionGroup postcodes={postcodeList} />
-    </Box>
+export const HomePageContainer = styled(Box)(({ theme }) => ({
+  display: "flex",
+  boxSizing: "border-box",
+  maxWidth: "1600px",
+  justifyContent: "space-between",
+  width: "100%",
+  height: "100%",
+  gap: "4rem",
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+    gap: "2rem",
+  },
+}));
+
+export const HomePageSearchContainer = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "2rem",
+  width: "100%",
+  boxShadow: "4px 10px 10px 2px rgba(0, 0, 0, 0.1)",
+  border: "1px solid rgba(0, 0, 0, 0.15)",
+  borderRadius: "1rem",
+  padding: "2rem",
+  boxSizing: "border-box",
+  backgroundColor: "white",
+  height: "fit-content",
+  [theme.breakpoints.down("md")]: {
+    flex: 0,
+  },
+}));
+
+const renderItem = (
+  postcode: PostCodeContent,
+  expandedCards: string[],
+  handleExpandClick: (id: string) => void
+) => {
+  const handleDelete = (postcode: PostCodeContent) => {
+    postcodes.remove(postcode);
+  };
+
+  return (
+    <InbestCard
+      header={postcode.country}
+      subheader={postcode.postcode}
+      title={`Admin District:\n${postcode.adminDistrict}`}
+      subtitle={`Latitude: ${postcode.latitude}\nLongitude: ${postcode.longitude}`}
+      description={`Searched at:\n${new Date(
+        postcode.createdAt
+      ).toLocaleDateString("lt-LT", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      })}`}
+      primaryButtonText="Delete"
+      primaryButtonAction={() => handleDelete(postcode)}
+      itemId={postcode.id}
+      isExpanded={expandedCards.includes(postcode.id)}
+      handleExpandClick={() => handleExpandClick(postcode.id)}
+    />
   );
 };
 

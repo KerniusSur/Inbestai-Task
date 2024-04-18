@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import {
   BaseTextFieldProps,
   Box,
@@ -6,17 +5,20 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { ChangeEvent, ReactNode } from "react";
 
 interface InbestInputProps extends BaseTextFieldProps {
   title?: string;
-  startIcon?: JSX.Element;
-  endIcon?: JSX.Element;
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
   type?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onEnterKeyPress?: () => void;
 }
 
 const InbestInput = (props: InbestInputProps) => {
-  const { name, title, startIcon, endIcon, onChange, ...other } = props;
+  const { title, startIcon, endIcon, onChange, onEnterKeyPress, ...other } =
+    props;
   return (
     <Box
       sx={{
@@ -48,18 +50,23 @@ const InbestInput = (props: InbestInputProps) => {
           ...getInputProps(startIcon, endIcon),
         }}
         onChange={onChange}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" && onEnterKeyPress) {
+            onEnterKeyPress();
+          }
+        }}
         {...other}
       />
     </Box>
   );
 };
-const getInputAdornment = (position: "end" | "start", icon?: JSX.Element) => {
+const getInputAdornment = (position: "end" | "start", icon?: ReactNode) => {
   return icon === undefined ? undefined : (
     <InputAdornment position={position}>{icon}</InputAdornment>
   );
 };
 
-const getInputProps = (startIcon?: JSX.Element, endIcon?: JSX.Element) => {
+const getInputProps = (startIcon?: ReactNode, endIcon?: ReactNode) => {
   if (startIcon === undefined && endIcon === undefined) {
     return undefined;
   }

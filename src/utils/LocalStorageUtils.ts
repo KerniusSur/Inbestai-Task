@@ -13,7 +13,7 @@ const LocalStorageUtils = {
     }
   },
 
-  saveState: async (state: any): Promise<void> => {
+  saveState: (state: any): void => {
     try {
       const serializedState = JSON.stringify(state);
       localStorage.setItem(KEY, serializedState);

@@ -39,7 +39,7 @@ export const lookupPostCode =
       country: response.result.country,
       longitude: response.result.longitude.toString(),
       latitude: response.result.latitude.toString(),
-      adminDistrict: response.result.admin_district,
+      adminDistrict: response.result.codes.admin_district,
       createdAt: new Date().toISOString(),
     };
 
