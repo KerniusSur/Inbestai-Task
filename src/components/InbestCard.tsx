@@ -9,7 +9,6 @@ import {
   IconButton,
   styled,
   Typography,
-  useTheme,
 } from "@mui/material";
 import InbestButton from "./InbestButton";
 
@@ -45,7 +44,6 @@ const InbestCard = (props: InbestCardProps) => {
     primaryButtonAction,
     secondaryButtonAction,
   } = props;
-  const theme = useTheme();
 
   return (
     <CardContainer>
@@ -79,15 +77,10 @@ const InbestCard = (props: InbestCardProps) => {
           />
         )}
         <CardContentContainer>
-          <Typography variant="h5" component="div">
-            {handleNewLine(title)}
-          </Typography>
-          <Typography variant="subtitle1" component="div">
-            {handleNewLine(subtitle)}
-          </Typography>
+          <Typography variant="h5">{handleNewLine(title)}</Typography>
+          <Typography variant="subtitle1">{handleNewLine(subtitle)}</Typography>
           <Typography
             variant="body2"
-            color={theme.palette.primary.contrastText}
             sx={{
               padding: "1.5rem 0rem",
             }}
@@ -134,6 +127,8 @@ const CardContainer = styled(Card)({
   borderRadius: 16,
   minWidth: "100%",
   boxSizing: "border-box",
+  boxShadow: "0px 10px 10px 2px rgba(0, 0, 0, 0.1)",
+  border: "1px solid rgba(0, 0, 0, 0.15)",
 });
 
 const CardContentContainer = styled(CardContent)({
@@ -149,7 +144,7 @@ const CardActionsContainer = styled(CardActions)({
   alignItems: "center",
 });
 
-const handleNewLine = (text?: string) => {
+export const handleNewLine = (text?: string) => {
   return text?.split("\n").map((line, index) => (
     <span key={index}>
       {line}
