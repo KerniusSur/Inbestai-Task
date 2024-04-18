@@ -1,5 +1,9 @@
 # Inbest Tech Homework Assessment
 
+## Overview
+
+This is a basic React application designed to facilitate the submission and retrieval of information about UK postcodes. It interacts with the postcodes.io API service to fetch data such as country, longitude, latitude, and administrative district based on the user-provided postcode. Additionally, the app maintains a history of submitted postcodes, allowing users to access previous submissions easily.
+
 ## Table of Contents
 
 1. [Overview](#overview)
@@ -13,12 +17,10 @@
     - [Main Libraries Used](#main-libraries-used)
     - [Project Structure](#project-structure)
     - [Redux Store](#redux-store)
-4. [Other Information](#things-i-believe-are-important-to-mention)
+    - [Scripts](#scripts)
+4. [Contact Information](#contact-information)
+5. [Other Information](#things-i-believe-are-important-to-mention)
     - [API Configuration](#1-api-configuration)
-
-## Overview
-
-This is a basic React application designed to facilitate the submission and retrieval of information about UK postcodes. It interacts with the postcodes.io API service to fetch data such as country, longitude, latitude, and administrative district based on the user-provided postcode. Additionally, the app maintains a history of submitted postcodes, allowing users to access previous submissions easily.
 
 ## Setup Instructions
 
@@ -77,7 +79,9 @@ npx serve -s build
 The application has *two* main routes:
 
 - **/**: The [home route](http://localhost:3000) where users can input a postcode and view its details.
-<!-- - **/history**: The [history route](http://localhost:3000/history) where users can view and manage their postcode history. -->
+- **/404**: The [404 route](http://localhost:3000/404) that displays a 404 error page when a route is not found.
+- **/contact**: The [contact route](http://localhost:3000/contact) where users can fill a contact form or find the contact information.
+  *(The contact form is not functional)*
 
 ### Features
 
@@ -114,7 +118,7 @@ The project follows a typical ReactJS project structure:
   - **models/**: Contains TypeScript interfaces used in the application.
   - **pages/**: Houses the main pages of the application.
   - **store/**: Holds Redux related files for managing application state.
-  - **theme/**: Contains theme configuration for the Material-UI components.
+  - **styles/**: Contains global or shared styles used in the application.
   - **utils/**: Houses utility functions used across the application.
   - **App.tsx**: Entry point of the application.
   - **index.tsx**: TypeScript entry point for the React application.
@@ -152,6 +156,10 @@ The project includes the following scripts:
 ```
 
 ```bash
+  npm run test   # Run the test suite (there are no tests in this project)
+```
+
+```bash
   npm run eject  # Eject the application
 ```
 
@@ -175,12 +183,19 @@ The project includes the following scripts:
 
 `ApiCreator.ts` is a factory function that creates an instance of the Axios client, sets up interceptors and returns the client.
 
+#### RouterRedirect.tsx
+
+This component is used to redirect the user to the 404 page if the route is not found.
+
 <br/>
 
 ***Note:*** This type of setup is useful for handling API requests in a more organized and efficient manner in bigger applications, maybe this is more complex, than necessary for this kind of project, however, I this opens up the possibility to easily expand the application in the future.
 
 <br/>
 
-### **Author**
+## Contact Information
 
-### [Kernius Survila](https://github.com/KerniusSur)
+For any questions, feedback, or support related to the project, feel free to reach out via:
+
+- Email: [kernius.survila@gmail.com](mailto:example@example.com)
+- LinkedIn: [LinkedIn Profile](https://www.linkedin.com/in/kerniussurvila/)
