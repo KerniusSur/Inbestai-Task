@@ -4,7 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import InbestFooter from "../components/InbestFooter";
 import InbestNavbar from "../components/InbestNavbar";
 
-const drawerWidth = 320;
+const drawerWidth = 300;
 
 const PublicLayout = () => {
   const location = useLocation();
@@ -57,6 +57,7 @@ export const ContentContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     padding: "1.5rem 1rem 3rem 1rem",
   },
+  minWidth: theme.breakpoints.values.xs,
 }));
 
 export const PageInnerContainer = styled(Box)(({ theme }) => ({
