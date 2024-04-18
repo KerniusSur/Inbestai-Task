@@ -1,5 +1,5 @@
-import ContactPage from "../pages/ContactPage";
 import PathItem from "../models/path/PathItem";
+import ContactPage from "../pages/ContactPage";
 import HomePage from "../pages/HomePage";
 import Page404 from "../pages/Page404";
 

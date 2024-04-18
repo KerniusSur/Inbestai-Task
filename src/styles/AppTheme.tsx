@@ -95,15 +95,7 @@ const AppTheme = createTheme(initialTheme, {
           boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.5)",
           height: "80px",
           minHeight: "none",
-          with: "100%",
-        },
-      },
-    },
-    MuiToolbar: {
-      styleOverrides: {
-        root: {
-          height: "80px",
-          boxShadow: "none",
+          width: "100%",
         },
       },
     },
