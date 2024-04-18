@@ -1,43 +1,32 @@
 import {
   BaseTextFieldProps,
   Box,
-  InputAdornment,
+  styled,
   TextField,
   Typography,
 } from "@mui/material";
-import { ChangeEvent, ReactNode } from "react";
+import { ChangeEvent, KeyboardEvent } from "react";
 
 interface InbestInputProps extends BaseTextFieldProps {
-  title?: string;
-  startIcon?: ReactNode;
-  endIcon?: ReactNode;
-  type?: string;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-  onEnterKeyPress?: () => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void | undefined;
+  onEnterKeyPress?: () => void | undefined;
 }
 
 const InbestInput = (props: InbestInputProps) => {
-  const { title, startIcon, endIcon, onChange, onEnterKeyPress, ...other } =
-    props;
+  const { title, onChange, onEnterKeyPress, ...other } = props;
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" && onEnterKeyPress) {
+      onEnterKeyPress();
+    }
+  };
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "8px",
-        width: "100%",
-      }}
-    >
+    <InputContainer>
       {title && (
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+        <InputTitleContainer>
           <Typography variant="body2">{title}</Typography>
-        </Box>
+        </InputTitleContainer>
       )}
       <TextField
         fullWidth
@@ -46,46 +35,25 @@ const InbestInput = (props: InbestInputProps) => {
             marginTop: "-3px",
           },
         }}
-        InputProps={{
-          ...getInputProps(startIcon, endIcon),
-        }}
         onChange={onChange}
         {...other}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" && !!onEnterKeyPress) {
-            onEnterKeyPress();
-          }
-        }}
+        onKeyDown={handleKeyDown}
       />
-    </Box>
-  );
-};
-const getInputAdornment = (position: "end" | "start", icon?: ReactNode) => {
-  return icon === undefined ? undefined : (
-    <InputAdornment position={position}>{icon}</InputAdornment>
+    </InputContainer>
   );
 };
 
-const getInputProps = (startIcon?: ReactNode, endIcon?: ReactNode) => {
-  if (startIcon === undefined && endIcon === undefined) {
-    return undefined;
-  }
-  const startAdornment = getInputAdornment("start", startIcon);
-  const endAdornment = getInputAdornment("end", endIcon);
-  if (startAdornment && endAdornment) {
-    return {
-      startAdornment: startAdornment,
-      endAdornment: endAdornment,
-    };
-  } else if (startAdornment) {
-    return {
-      startAdornment: startAdornment,
-    };
-  } else if (endAdornment) {
-    return {
-      endAdornment: endAdornment,
-    };
-  }
-};
+const InputContainer = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  gap: "8px",
+  width: "100%",
+});
+
+const InputTitleContainer = styled(Box)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+});
 
 export default InbestInput;
