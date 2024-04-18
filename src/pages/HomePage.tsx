@@ -2,7 +2,7 @@ import { Box, Collapse, styled, Typography } from "@mui/material";
 import PostCodeContent from "models/postcode/PostCodeContent";
 import { ChangeEvent, useEffect, useState } from "react";
 import { TransitionGroup } from "react-transition-group";
-import InbestBackgroundInteractiveWidget from "../components/InbestBackgroundInteractiveWidget";
+import InbestBackgroundWidget from "../components/InbestBackgroundWidget";
 import InbestButton from "../components/InbestButton";
 import InbestCard from "../components/InbestCard";
 import InbestInput from "../components/InbestInput";
@@ -43,7 +43,7 @@ const HomePage = () => {
 
   return (
     <HomePageContainer>
-      <InbestBackgroundInteractiveWidget />
+      <InbestBackgroundWidget />
       <HomePageSearchContainer
         sx={{
           flex: postcodeList.length > 0 ? 1 : 2,

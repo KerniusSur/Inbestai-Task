@@ -7,7 +7,7 @@ interface InbestBackgroundInteractiveWidgetProps {
   iconNumber?: number;
 }
 
-const InbestBackgroundInteractiveWidget = (
+const InbestBackgroundWidget = (
   props: InbestBackgroundInteractiveWidgetProps
 ) => {
   const { iconNumber = 1 } = props;
@@ -48,4 +48,4 @@ const InbestBackgroundInteractiveWidget = (
   );
 };
 
-export default InbestBackgroundInteractiveWidget;
+export default InbestBackgroundWidget;
