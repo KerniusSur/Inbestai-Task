@@ -41,9 +41,15 @@ const AppTheme = createTheme(initialTheme, {
     MuiButton: {
       styleOverrides: {
         root: {
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
           padding: "18px 32px",
           borderRadius: "15px",
           boxShadow: "none",
+          "&.Mui-disabled": {
+            cursor: "not-allowed",
+          },
         },
         outlined: {
           border: "1px solid #222222",
