@@ -1,9 +1,10 @@
 import { ThunkAction, UnknownAction } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from "uuid";
+import { createApi } from "../../../api/ApiCreator";
 import { PostCodes } from "../../../api/PostCodes";
 import PostCodeContent from "../../../models/postcode/PostCodeContent";
 import { RootState } from "../../configureStore";
 import { postcodeSlice } from "./slice";
-import { createApi } from "../../../api/ApiCreator";
 
 const actions = postcodeSlice.actions;
 
@@ -34,7 +35,7 @@ export const lookupPostCode =
     }
 
     const postCode: PostCodeContent = {
-      id: response.result.postcode,
+      id: uuidv4(),
       postcode: response.result.postcode,
       country: response.result.country,
       longitude: response.result.longitude.toString(),

@@ -50,12 +50,12 @@ const InbestInput = (props: InbestInputProps) => {
           ...getInputProps(startIcon, endIcon),
         }}
         onChange={onChange}
+        {...other}
         onKeyDown={(event) => {
-          if (event.key === "Enter" && onEnterKeyPress) {
+          if (event.key === "Enter" && !!onEnterKeyPress) {
             onEnterKeyPress();
           }
         }}
-        {...other}
       />
     </Box>
   );

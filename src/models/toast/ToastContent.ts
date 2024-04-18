@@ -1,4 +1,5 @@
 interface ToastContent {
+  id: string;
   open: boolean;
   message: string;
   severity: "error" | "warning" | "info" | "success";

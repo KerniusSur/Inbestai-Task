@@ -12,11 +12,19 @@ const addToast =
 const closeToast =
   (toastToClose: ToastContent): ThunkAction<void, RootState, unknown, Action> =>
   (dispatch) => {
-    const closedToast = {
-      ...toastToClose,
-      open: false,
-    };
-    dispatch(toastActions.closeToast({ toast: closedToast }));
+    dispatch(toastActions.closeToast({ toast: toastToClose }));
+  };
+const removeToast =
+  (
+    toastToRemove: ToastContent
+  ): ThunkAction<void, RootState, unknown, Action> =>
+  (dispatch) => {
+    dispatch(toastActions.removeToast({ toast: toastToRemove }));
   };
 
-export { addToast, closeToast };
+const clearAll =
+  (): ThunkAction<void, RootState, unknown, Action> => (dispatch) => {
+    dispatch(toastActions.clearToasts());
+  };
+
+export { addToast, closeToast, removeToast, clearAll };

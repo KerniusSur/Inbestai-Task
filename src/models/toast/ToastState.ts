@@ -1,7 +1,7 @@
 import ToastContent from "./ToastContent";
 
 interface ToastState {
-  toast?: ToastContent;
+  toasts: ToastContent[];
 }
 
 export default ToastState;

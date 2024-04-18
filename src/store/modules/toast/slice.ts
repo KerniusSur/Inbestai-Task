@@ -2,22 +2,37 @@ import { createSlice } from "@reduxjs/toolkit";
 import ToastState from "models/toast/ToastState";
 
 const initialState: ToastState = {
-  toast: undefined,
+  toasts: [],
 };
 
 export const toastSlice = createSlice({
-  name: "toast",
+  name: "toasts",
   initialState: initialState,
   reducers: {
     addToast: (state, action) => {
-      state.toast = action.payload.toast;
+      // Limit the number of toasts to 10
+      if (state.toasts.length < 10) {
+        state.toasts.push(action.payload.toast);
+      }
     },
     closeToast: (state, action) => {
-      state.toast = action.payload.toast;
+      state.toasts = state.toasts.map((toast) => ({
+        ...toast,
+        open: toast.id === action.payload.toast.id ? false : toast.open,
+      }));
+    },
+    removeToast: (state, action) => {
+      state.toasts = state.toasts.filter(
+        (toast) => toast.id !== action.payload.toast.id
+      );
+    },
+    clearToasts: (state) => {
+      state.toasts = [];
     },
   },
 });
 
-export const { addToast, closeToast: removeToast } = toastSlice.actions;
+export const { addToast, closeToast, removeToast, clearToasts } =
+  toastSlice.actions;
 
 export default toastSlice.reducer;

@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
-import { showErrorToast } from "../utils/ToastUtils";
 import { PostCodes } from "../api/PostCodes";
+import toast from "../store/toast";
 
 export const createApi = (): any => {
   let returnValue = new PostCodes({ baseURL: "https://api.postcodes.io" });
@@ -16,27 +16,25 @@ export const createApi = (): any => {
 const handleErrors = (error: AxiosError) => {
   switch (error.response?.status) {
     case 400:
-      showErrorToast("The given postcode is invalid. Please try again.");
-      return Promise.reject(error);
+      toast.error("The given postcode is invalid. Please try again.");
+      return Promise.reject(error.message);
 
     case 401:
     case 403:
-      showErrorToast("You are not authorized to access this resource.");
+      toast.error("You are not authorized to access this resource.");
       window.location.href = "/";
-      return Promise.reject(error);
+      return Promise.reject(error.message);
 
     case 404:
-      showErrorToast("The given postcode was not found. Please try again.");
-      return Promise.reject(error);
+      toast.error("The given postcode was not found. Please try again.");
+      return Promise.reject(error.message);
 
     case 500:
-      showErrorToast(
-        "An error occurred on the server. Please try again later."
-      );
-      return Promise.reject(error);
+      toast.error("An error occurred on the server. Please try again later.");
+      return Promise.reject(error.message);
 
     default:
-      showErrorToast("An error occurred. Please try again later.");
-      return Promise.reject(error);
+      toast.error("An error occurred. Please try again later.");
+      return Promise.reject(error.message);
   }
 };

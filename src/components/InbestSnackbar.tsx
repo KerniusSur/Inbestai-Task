@@ -7,32 +7,44 @@ import {
   Snackbar,
   Typography,
 } from "@mui/material";
-import { SyntheticEvent } from "react";
+import ToastContent from "models/toast/ToastContent";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { useAppSelector } from "../hooks/reduxHooks";
-import toasts from "../store/toast";
+import toast from "../store/toast";
 
 const InbestSnackbar = () => {
-  const toast = useAppSelector((state) => state.toasts.toast);
-  const isToastOpen = useAppSelector((state) => state.toasts.toast?.open);
+  const toastState = useAppSelector((state) => state.toasts);
+  const [currentToast, setCurrentToast] = useState<ToastContent | null>(null);
+  const [toasts, setToasts] = useState<ToastContent[]>([]);
+
+  useEffect(() => {
+    if (toasts.length === toastState.toasts.length) {
+      setCurrentToast(toastState.toasts[0]);
+    }
+
+    setToasts(toastState.toasts);
+  }, [currentToast, toastState.toasts, toasts.length]);
 
   const handleClose = (event?: SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
 
-    if (!toast) {
-      return;
+    if (currentToast) {
+      toast.close(currentToast);
     }
-
-    toasts.closeToast(toast);
   };
 
   return (
     <Snackbar
-      open={isToastOpen}
-      autoHideDuration={5000}
+      open={currentToast?.open}
+      disableWindowBlurListener
+      autoHideDuration={3000}
       TransitionComponent={SlideTransition}
       onClose={handleClose}
+      sx={{
+        marginTop: "1rem",
+      }}
       anchorOrigin={{
         vertical: "top",
         horizontal: "left",
@@ -40,7 +52,8 @@ const InbestSnackbar = () => {
     >
       <Alert
         variant="filled"
-        severity={toast?.severity}
+        severity={currentToast?.severity}
+        onClose={handleClose}
         sx={{ width: "100%", display: "flex", alignItems: "center" }}
         action={
           <IconButton
@@ -53,7 +66,7 @@ const InbestSnackbar = () => {
           </IconButton>
         }
       >
-        <Typography variant="body2">{toast?.message}</Typography>
+        <Typography variant="body2">{currentToast?.message}</Typography>
       </Alert>
     </Snackbar>
   );

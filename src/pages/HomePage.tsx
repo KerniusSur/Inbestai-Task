@@ -8,23 +8,30 @@ import InbestCard from "../components/InbestCard";
 import InbestInput from "../components/InbestInput";
 import { useAppSelector } from "../hooks/reduxHooks";
 import postcodes from "../store/postcodes";
+import toast from "../store/toast";
 
 const HomePage = () => {
   const postCodeState = useAppSelector((state) => state.postcodes);
+
   const [postcode, setPostcode] = useState<string>("");
   const [expandedCards, setExpandedCards] = useState<string[]>([]);
-  const [postcodeList, setPostcodeList] = useState<PostCodeContent[]>(
-    postCodeState.postcodes
-  );
+  const [postcodeList, setPostcodeList] = useState<PostCodeContent[]>([]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPostcode(event.target.value);
   };
 
   useEffect(() => {
-    setPostcodeList(postCodeState.postcodes);
+
+    const postCodeList = postCodeState.postcodes ?? [];
+    setPostcodeList(postCodeList);
     setPostcode("");
-    if (postCodeState.postcodes.length > 0) {
+    if (postCodeList.length > 0) {
+      if (postCodeList.length > 5) {
+        setExpandedCards([postCodeState.postcodes[0].id]);
+        return;
+      }
+
       setExpandedCards((prev) => [...prev, postCodeState.postcodes[0].id]);
     }
   }, [postCodeState.postcodes]);
@@ -143,6 +150,7 @@ const renderItem = (
 ) => {
   const handleDelete = (postcode: PostCodeContent) => {
     postcodes.remove(postcode);
+    toast.success("Postcode deleted successfully");
   };
 
   return (

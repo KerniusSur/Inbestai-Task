@@ -1,20 +1,21 @@
 import { ThemeProvider } from "@mui/material";
 import { StrictMode } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import InbestSnackbar from "./components/InbestSnackbar";
 import routeGroups from "./constants/routeGroups";
 import routes from "./constants/routes";
+
 import useDebounce from "./hooks/useDebounce";
 import { store } from "./store/configureStore";
 import AppTheme from "./styles/AppTheme";
-import RouterRedirect from "./utils/RouterRedirect";
 import LocalStorageUtils from "./utils/LocalStorageUtils";
-import InbestSnackbar from "./components/InbestSnackbar";
+import RouterRedirect from "./utils/RouterRedirect";
 
 const App = () => {
   store.subscribe(
     useDebounce(() => {
       LocalStorageUtils.saveState(store.getState());
-    }, 500)
+    }, 50)
   );
 
   return (
