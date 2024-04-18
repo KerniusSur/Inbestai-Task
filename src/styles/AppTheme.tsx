@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material";
 import { CSSProperties } from "react";
 
-let initialTheme = createTheme({
+const initialTheme = createTheme({
   breakpoints: {
     values: {
       xs: 300,
