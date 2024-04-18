@@ -7,10 +7,11 @@ import {
   Snackbar,
   Typography,
 } from "@mui/material";
-import ToastContent from "models/toast/ToastContent";
+import ToastContent from "../models/toast/ToastContent";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useAppSelector } from "../hooks/reduxHooks";
 import toast from "../store/toast";
+import { handleNewLine } from "../components/InbestCard";
 
 const InbestSnackbar = () => {
   const toastState = useAppSelector((state) => state.toasts);
@@ -66,7 +67,9 @@ const InbestSnackbar = () => {
           </IconButton>
         }
       >
-        <Typography variant="body2">{currentToast?.message}</Typography>
+        <Typography variant="body2">
+          {handleNewLine(currentToast?.message)}
+        </Typography>
       </Alert>
     </Snackbar>
   );

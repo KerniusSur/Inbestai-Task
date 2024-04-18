@@ -10,6 +10,7 @@ import InbestBackgroundWidget from "../components/InbestBackgroundWidget";
 import InbestButton from "../components/InbestButton";
 import InbestInput from "../components/InbestInput";
 import { PageInnerContainer } from "../layouts/PublicLayout";
+import toasts from "../store/toast";
 
 const ContactPage = () => {
   const theme = useTheme();
@@ -18,6 +19,11 @@ const ContactPage = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    toasts.success(
+      "The contact form successfully submitted!\n(Please note that this form is not functional)"
+    );
+    setValues(initialValues);
+
     console.log(
       `Thank you for your message!\n\nValues:\n\tName: ${values.name}\n\tEmail: ${values.email}\n\tMessage: ${values.message}`
     );
@@ -73,12 +79,14 @@ const ContactPage = () => {
           }}
         >
           <InbestInput
+            value={values.name}
             name="name"
             placeholder="Name"
             required
             onChange={handleChange}
           />
           <InbestInput
+            value={values.email}
             name="email"
             placeholder="Email"
             required
@@ -86,6 +94,7 @@ const ContactPage = () => {
           />
         </Box>
         <InbestInput
+          value={values.message}
           name="message"
           placeholder="Message"
           required
