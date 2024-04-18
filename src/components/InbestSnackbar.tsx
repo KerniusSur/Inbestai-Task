@@ -7,24 +7,15 @@ import {
   Snackbar,
   Typography,
 } from "@mui/material";
-import ToastContent from "../models/toast/ToastContent";
 import { SyntheticEvent, useEffect, useState } from "react";
-import { useAppSelector } from "../hooks/reduxHooks";
-import toast from "../store/toast";
 import { handleNewLine } from "../components/InbestCard";
+import { useAppSelector } from "../hooks/reduxHooks";
+import ToastContent from "../models/toast/ToastContent";
+import toast from "../store/toast";
 
 const InbestSnackbar = () => {
-  const toastState = useAppSelector((state) => state.toasts);
+  const { toasts } = useAppSelector((state) => state.toasts);
   const [currentToast, setCurrentToast] = useState<ToastContent | null>(null);
-  const [toasts, setToasts] = useState<ToastContent[]>([]);
-
-  useEffect(() => {
-    if (toasts.length === toastState.toasts.length) {
-      setCurrentToast(toastState.toasts[0]);
-    }
-
-    setToasts(toastState.toasts);
-  }, [currentToast, toastState.toasts, toasts.length]);
 
   const handleClose = (event?: SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
@@ -36,26 +27,29 @@ const InbestSnackbar = () => {
     }
   };
 
+  useEffect(() => {
+    if (toasts.length > 0) {
+      setCurrentToast(toasts[0]);
+    }
+  }, [toasts]);
+
   return (
     <Snackbar
-      open={currentToast?.open}
+      open={currentToast?.open ?? false}
       disableWindowBlurListener
-      autoHideDuration={3000}
+      autoHideDuration={4000}
       TransitionComponent={SlideTransition}
       onClose={handleClose}
-      sx={{
-        marginTop: "1rem",
-      }}
       anchorOrigin={{
         vertical: "top",
         horizontal: "left",
       }}
+      aria-label="Notification"
     >
       <Alert
         variant="filled"
         severity={currentToast?.severity}
         onClose={handleClose}
-        sx={{ width: "100%", display: "flex", alignItems: "center" }}
         action={
           <IconButton
             key="close"
@@ -63,9 +57,11 @@ const InbestSnackbar = () => {
             color="inherit"
             onClick={handleClose}
           >
-            <CloseOutlined />
+            <CloseOutlined key="close" aria-label="close" />
           </IconButton>
         }
+        role="alert"
+        aria-live="assertive"
       >
         <Typography variant="body2">
           {handleNewLine(currentToast?.message)}

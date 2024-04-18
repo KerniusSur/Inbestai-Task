@@ -106,6 +106,20 @@ const AppTheme = createTheme(initialTheme, {
         },
       },
     },
+    MuiAlert: {
+      styleOverrides: {
+        action: {
+          alignSelf: "center",
+          paddingTop: "0px",
+        },
+        message: {
+          alignSelf: "center",
+        },
+        icon: {
+          alignSelf: "center",
+        },
+      },
+    },
     MuiCardHeader: {
       styleOverrides: {
         action: {
@@ -204,6 +218,20 @@ const AppTheme = createTheme(initialTheme, {
       fontWeight: 500,
       fontStyle: "normal",
       textTransform: "none",
+    },
+    hyperlink: {
+      fontFamily: "Roboto, Sans-serif",
+      fontSize: "16px",
+      lineHeight: "20px",
+      fontStyle: "normal",
+      letterSpacing: "0",
+      fontWeight: 500,
+      textDecoration: "underline",
+      cursor: "pointer",
+      color: initialTheme.palette.primary.main,
+      "&:hover": {
+        color: initialTheme.palette.primary.dark,
+      },
     },
   },
 });
