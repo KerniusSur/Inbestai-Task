@@ -1,4 +1,4 @@
-const useDebounce = (fn: Function, ms = 300) => {
+const debounce = (fn: Function, ms = 300) => {
   let debounce: ReturnType<typeof setTimeout>;
   return function (this: any, ...args: any[]) {
     clearTimeout(debounce);
@@ -6,4 +6,4 @@ const useDebounce = (fn: Function, ms = 300) => {
   };
 };
 
-export default useDebounce;
+export default debounce;

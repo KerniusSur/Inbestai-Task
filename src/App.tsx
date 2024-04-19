@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import InbestSnackbar from "./components/InbestSnackbar";
 import routeGroups from "./constants/routeGroups";
 import routes from "./constants/routes";
-import useDebounce from "./hooks/useDebounce";
+import debounce from "./utils/debounce";
 import { store } from "./store/configureStore";
 import AppTheme from "./styles/AppTheme";
 import LocalStorageUtils from "./utils/LocalStorageUtils";
@@ -12,7 +12,7 @@ import RouterRedirect from "./utils/RouterRedirect";
 
 const App = () => {
   store.subscribe(
-    useDebounce(() => {
+    debounce(() => {
       LocalStorageUtils.saveState(store.getState());
     }, 50)
   );

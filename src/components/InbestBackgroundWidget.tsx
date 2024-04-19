@@ -3,6 +3,7 @@ import { CSSProperties, useEffect } from "react";
 import InbestWidgetIcon1 from "../assets/inbest-widget-1.svg";
 import InbestWidgetIcon2 from "../assets/inbest-widget-2.svg";
 import "../styles/WidgetStyles.css";
+import throttle from "../utils/throttle";
 
 interface InbestBackgroundInteractiveWidgetProps {
   iconNumber?: number;
@@ -36,10 +37,18 @@ const InbestBackgroundWidget = (
       );
     };
 
-    window.addEventListener("mousemove", handleSetTranslateVariables);
+    /**  Throttle the event listener to avoid performance issues
+     *  30ms is equal arounf to 30fps
+     */
+    const throttledSetTranslateVariables = throttle(
+      handleSetTranslateVariables,
+      30
+    );
+
+    window.addEventListener("mousemove", throttledSetTranslateVariables);
 
     return () => {
-      window.removeEventListener("mousemove", handleSetTranslateVariables);
+      window.removeEventListener("mousemove", throttledSetTranslateVariables);
     };
   }, []);
 
