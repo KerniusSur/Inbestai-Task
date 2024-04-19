@@ -34,17 +34,7 @@ const ContactPage = () => {
   };
 
   return (
-    <PageInnerContainer
-      sx={{
-        maxWidth: "800px",
-        alignItems: "center",
-        flexDirection: "column",
-        [theme.breakpoints.down("md")]: {
-          justifyContent: "flex-start",
-          gap: "2rem",
-        },
-      }}
-    >
+    <ContactPageContainer>
       <InbestBackgroundWidget
         iconNumber={2}
         widgetPosition={{
@@ -52,11 +42,7 @@ const ContactPage = () => {
           top: mdDown ? "55%" : "20%",
         }}
       />
-      <ContactDetailsContainer
-        sx={{
-          left: "50%",
-        }}
-      >
+      <ContactDetailsContainer>
         <Typography variant="h4">Contact me</Typography>
         <Typography variant="body1">
           If you have any questions or feedback, feel free to contact me using
@@ -69,24 +55,12 @@ const ContactPage = () => {
               window.location.href = "mailto:kernius.survila@gmail.com";
             }}
           >
-            {/* <a href="mailto:kernius.survila@gmail.com" style={{ textDecoration: "none" }}> */}
             kernius.survila@gmail.com
-            {/* </a> */}
           </Typography>
         </Typography>
       </ContactDetailsContainer>
       <ContactFormContainer onSubmit={handleSubmit}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            gap: "1rem",
-            width: "100%",
-            [theme.breakpoints.down("sm")]: {
-              flexDirection: "column",
-            },
-          }}
-        >
+        <ContactFormInputContainer>
           <InbestInput
             value={values.name}
             name="name"
@@ -101,7 +75,7 @@ const ContactPage = () => {
             required
             onChange={handleChange}
           />
-        </Box>
+        </ContactFormInputContainer>
         <InbestInput
           value={values.message}
           name="message"
@@ -116,7 +90,6 @@ const ContactPage = () => {
           sx={{
             display: "flex",
             padding: "1rem",
-            boxSizing: "border-box",
           }}
         >
           <Typography variant="body2">
@@ -137,7 +110,7 @@ const ContactPage = () => {
           </Typography>
         </Box>
       </ContactFormContainer>
-    </PageInnerContainer>
+    </ContactPageContainer>
   );
 };
 
@@ -152,6 +125,26 @@ const initialValues: ContactFormValues = {
   email: "",
   message: "",
 };
+
+const ContactPageContainer = styled(PageInnerContainer)(({ theme }) => ({
+  maxWidth: "800px",
+  alignItems: "center",
+  flexDirection: "column",
+  [theme.breakpoints.down("md")]: {
+    justifyContent: "flex-start",
+    gap: "2rem",
+  },
+}));
+
+const ContactFormInputContainer = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  gap: "1rem",
+  width: "100%",
+  [theme.breakpoints.down("sm")]: {
+    flexDirection: "column",
+  },
+}));
 
 const ContactDetailsContainer = styled(Box)(({ theme }) => ({
   display: "flex",
