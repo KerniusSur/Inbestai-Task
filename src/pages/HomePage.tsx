@@ -148,10 +148,9 @@ const HomePage = () => {
                 <SuggestionOptionContainer
                   key={suggestion}
                   sx={{
-                    flex:
-                      postcodeList.length > 0
-                        ? "1 calc(50% - 1rem)"
-                        : "0 calc(25% - 1rem)",
+                    [theme.breakpoints.up("sm")]: {
+                      flex: postcodeList.length === 0 && "0 calc(25% - 1rem)",
+                    },
                   }}
                   onClick={() => handleSetPostcode(suggestion)}
                 >
