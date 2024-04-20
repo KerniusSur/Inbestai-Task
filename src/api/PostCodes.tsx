@@ -1,6 +1,6 @@
 import {
   PostcodeAutocompleteResponse,
-  PostcodeLookupResponse
+  PostcodeLookupResponse,
 } from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
