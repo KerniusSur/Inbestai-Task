@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import PostCodeContent from "models/postcode/PostCodeContent";
-import PostCodeState from "models/postcode/PostCodeState";
+import PostCodeContent from "../../../models/postcode/PostCodeContent";
+import PostCodeState from "../../../models/postcode/PostCodeState";
 
 const initialState: PostCodeState = {
   postcodes: [],
+  suggestions: [],
 };
 
 export const postcodeSlice = createSlice({
@@ -19,9 +20,16 @@ export const postcodeSlice = createSlice({
           postcode.id !== action.payload.postcode.id
       );
     },
+    addSuggestions: (state, action) => {
+      state.suggestions = action.payload.suggestions;
+    },
+    clearSuggestions: (state) => {
+      state.suggestions = [];
+    },
   },
 });
 
-export const { addPostCode, removePostCode } = postcodeSlice.actions;
+export const { addPostCode, removePostCode, addSuggestions, clearSuggestions } =
+  postcodeSlice.actions;
 
 export default postcodeSlice.reducer;

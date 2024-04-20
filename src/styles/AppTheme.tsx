@@ -123,6 +123,10 @@ const AppTheme = createTheme(initialTheme, {
       styleOverrides: {
         action: {
           alignSelf: "center",
+          padding: "0 1rem 1rem 1rem",
+          [initialTheme.breakpoints.down("sm")]: {
+            padding: "0 0.75rem 0.75rem 0.75rem",
+          },
         },
       },
     },
@@ -153,24 +157,24 @@ const AppTheme = createTheme(initialTheme, {
     },
     h3: {
       fontFamily: "Roboto, Sans-serif",
-      fontSize: "5rem",
+      fontSize: "3rem",
       lineHeight: "1.1em",
       letterSpacing: "-2px",
       fontStyle: "normal",
       fontWeight: 600,
       [initialTheme.breakpoints.down("md")]: {
-        fontSize: "4rem",
+        fontSize: "2.5rem",
       },
       [initialTheme.breakpoints.down("sm")]: {
-        fontSize: "3rem",
+        fontSize: "2rem",
       },
       [initialTheme.breakpoints.down("xs")]: {
-        fontSize: "2rem",
+        fontSize: "1.5rem",
       },
     },
     h4: {
       fontFamily: "Roboto, Sans-serif",
-      fontSize: "45px",
+      fontSize: "32px",
       lineHeight: "1.1em",
       fontStyle: "normal",
       letterSpacing: "-2px",

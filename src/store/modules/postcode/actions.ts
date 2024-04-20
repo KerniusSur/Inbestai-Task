@@ -24,14 +24,37 @@ export const removePostCode =
     dispatch(actions.removePostCode({ postcode: postcodeToRemove }));
   };
 
+export const autocomplete =
+  (
+    wrongPostcode: string
+  ): ThunkAction<void, RootState, unknown, UnknownAction> =>
+  async (dispatch) => {
+    const postcodeApi = createApi() as PostCodes;
+    const response = await postcodeApi.autocomplete(wrongPostcode);
+    let suggestions: string[] = [];
+
+    if (response.result) {
+      suggestions = response.result;
+    }
+
+    dispatch(actions.addSuggestions({ suggestions }));
+  };
+
+export const clearSuggestions =
+  (): ThunkAction<void, RootState, unknown, UnknownAction> => (dispatch) => {
+    dispatch(actions.clearSuggestions());
+  };
+
 export const lookupPostCode =
   (newPostCode: string): ThunkAction<void, RootState, unknown, UnknownAction> =>
   async (dispatch) => {
     const postcodeApi = createApi() as PostCodes;
-    const response = await postcodeApi.lookup(newPostCode);
+    const response = await postcodeApi.lookup(newPostCode).catch((error) => {
+      dispatch(autocomplete(newPostCode));
+    });
 
-    if (response === null) {
-      return false;
+    if (!response) {
+      return;
     }
 
     const postcode: PostCodeContent = {

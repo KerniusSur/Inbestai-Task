@@ -7,7 +7,9 @@ const Page404 = () => {
   return (
     <Page404Container>
       <Typography variant="h1">404</Typography>
-      <Typography variant="h4">Oops, this page could not be found!</Typography>
+      <Typography variant="h3" align="center">
+        Oops, this page could not be found!
+      </Typography>
       <InbestButton
         sx={{
           marginTop: "2rem",
@@ -27,7 +29,6 @@ const Page404Container = styled(Box)({
   flexDirection: "column",
   alignItems: "center",
   gap: "1rem",
-  height: "100%",
   justifyContent: "center",
 });
 
