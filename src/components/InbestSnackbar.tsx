@@ -31,13 +31,13 @@ const InbestSnackbar = () => {
     if (toasts.length > 0) {
       setCurrentToast(toasts[0]);
     }
-  }, [toasts]);
+  }, [currentToast, toasts]);
 
   return (
     <Snackbar
       open={currentToast?.open ?? false}
       disableWindowBlurListener
-      autoHideDuration={4000}
+      autoHideDuration={3000}
       TransitionComponent={SlideTransition}
       onClose={handleClose}
       anchorOrigin={{

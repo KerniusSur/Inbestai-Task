@@ -123,7 +123,7 @@ export class HttpClient<SecurityDataType = unknown> {
     }, new FormData());
   }
 
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line
   public request = async <T = any, E = any>({
     secure,
     path,
