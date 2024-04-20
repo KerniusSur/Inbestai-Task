@@ -245,7 +245,7 @@ const SuggestionOptionContainer = styled(Box)({
   borderRadius: "1rem",
   width: "100%",
   cursor: "pointer",
-  transition: "background-color 0.2s ease-in-out",
+  transition: "background-color .2s ease-in-out",
   "&:hover": {
     backgroundColor: "rgba(0, 0, 0, 0.05)",
   },

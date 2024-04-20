@@ -121,11 +121,30 @@ const AppTheme = createTheme(initialTheme, {
     },
     MuiCardHeader: {
       styleOverrides: {
+        root: {
+          [initialTheme.breakpoints.down("sm")]: {
+            padding: "0.75rem",
+          },
+        },
         action: {
           alignSelf: "center",
-          padding: "0 1rem 1rem 1rem",
+        },
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
           [initialTheme.breakpoints.down("sm")]: {
-            padding: "0 0.75rem 0.75rem 0.75rem",
+            padding: "0.75rem",
+          },
+        },
+      },
+    },
+    MuiCardActions: {
+      styleOverrides: {
+        root: {
+          [initialTheme.breakpoints.down("sm")]: {
+            padding: "0.75rem",
           },
         },
       },
