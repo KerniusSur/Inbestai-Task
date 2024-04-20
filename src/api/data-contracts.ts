@@ -52,11 +52,6 @@ export interface Codes {
   pfa: string;
 }
 
-export interface PostcodeValidateResponse {
-  status: number;
-  result: boolean;
-}
-
 export interface PostcodeAutocompleteResponse {
   status: number;
   result: string[];

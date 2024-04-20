@@ -1,7 +1,6 @@
 import {
   PostcodeAutocompleteResponse,
-  PostcodeLookupResponse,
-  PostcodeValidateResponse,
+  PostcodeLookupResponse
 } from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
@@ -21,25 +20,6 @@ export class PostCodes<
   lookup = (postcode: string, params: RequestParams = {}) =>
     this.request<PostcodeLookupResponse, any>({
       path: `/postcodes/${postcode}`,
-      method: "GET",
-      type: ContentType.Json,
-      ...params,
-    });
-
-  /**
-   *  Validate a postcode
-   *
-   * @tags postcodes
-   * @name validate
-   * @request GET:/postcodes/{postcode}/validate
-   * @response `200` `PostcodeValidateResponse`
-   * @response `400` `PostcodeErrorResponse`
-   * @response `404` `PostcodeErrorResponse`
-   */
-
-  validate = (postcode: string, params: RequestParams = {}) =>
-    this.request<PostcodeValidateResponse, any>({
-      path: `/postcodes/${postcode}/validate`,
       method: "GET",
       type: ContentType.Json,
       ...params,
