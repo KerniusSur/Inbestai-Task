@@ -51,15 +51,7 @@ const InbestNavbar = (props: InbestNavbarProps) => {
       }}
     >
       <NavBarContainer>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            width: "100%",
-            gap: "2rem",
-          }}
-        >
+        <NavBarInnerBox>
           <Box
             sx={{
               cursor: "pointer",
@@ -73,13 +65,7 @@ const InbestNavbar = (props: InbestNavbarProps) => {
             }}
           />
           <Hidden mdDown>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: "2.5rem",
-              }}
-            >
+            <NavigationMenuBox>
               {navbarNavigationItems.map((item) => (
                 <NavBarTextButton
                   key={item.path}
@@ -95,14 +81,14 @@ const InbestNavbar = (props: InbestNavbarProps) => {
                   {item.label}
                 </NavBarTextButton>
               ))}
-            </Box>
+            </NavigationMenuBox>
           </Hidden>
           {isBelowMd && (
             <IconButton onClick={toggleDrawer}>
               <MenuOutlined color="secondary" />
             </IconButton>
           )}
-        </Box>
+        </NavBarInnerBox>
       </NavBarContainer>
       <InbestDrawer
         isDrawerOpen={isDrawerOpen}
@@ -149,6 +135,20 @@ const NavBarContainer = styled(Container)(({ theme }) => ({
     padding: "1rem 2rem 1rem 1rem !important",
   },
 }));
+
+const NavBarInnerBox = styled(Box)({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  width: "100%",
+  gap: "2rem",
+});
+
+const NavigationMenuBox = styled(Box)({
+  display: "flex",
+  alignItems: "center",
+  gap: "2.5rem",
+});
 
 export interface NavbarNavigationItem {
   label: string;

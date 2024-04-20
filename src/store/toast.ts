@@ -1,5 +1,5 @@
-import ToastContent from "models/toast/ToastContent";
 import { v4 as uiidv4 } from "uuid";
+import ToastContent from "../models/toast/ToastContent";
 import { store } from "./configureStore";
 import {
   addToast,

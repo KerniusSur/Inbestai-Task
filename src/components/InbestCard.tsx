@@ -9,6 +9,7 @@ import {
   IconButton,
   styled,
   Typography,
+  useTheme,
 } from "@mui/material";
 import InbestButton from "./InbestButton";
 
@@ -44,7 +45,7 @@ const InbestCard = (props: InbestCardProps) => {
     primaryButtonAction,
     secondaryButtonAction,
   } = props;
-
+  const theme = useTheme();
   return (
     <CardContainer>
       <CardHeader
@@ -82,7 +83,10 @@ const InbestCard = (props: InbestCardProps) => {
           <Typography
             variant="body2"
             sx={{
-              padding: "1.5rem 0rem",
+              padding: "1rem 0rem",
+              [theme.breakpoints.up("sm")]: {
+                padding: "1.5rem 0rem",
+              },
             }}
           >
             {handleNewLine(description)}
@@ -138,11 +142,14 @@ const CardContentContainer = styled(CardContent)({
   gap: "0.5rem",
 });
 
-const CardActionsContainer = styled(CardActions)({
+const CardActionsContainer = styled(CardActions)(({ theme }) => ({
   display: "flex",
   padding: "0rem 1rem 1rem 1rem",
   alignItems: "center",
-});
+  [theme.breakpoints.down("sm")]: {
+    padding: "0rem 0.75rem 0.75rem 0.75rem",
+  },
+}));
 
 export const handleNewLine = (text?: string) => {
   return text?.split("\n").map((line, index) => (

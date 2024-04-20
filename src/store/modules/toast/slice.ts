@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import ToastState from "models/toast/ToastState";
+import ToastState from "../../../models/toast/ToastState";
 
 const initialState: ToastState = {
   toasts: [],

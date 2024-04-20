@@ -39,9 +39,13 @@ export interface ApiConfig<SecurityDataType = unknown>
 }
 
 export enum ContentType {
+  // eslint-disable-next-line no-unused-vars
   Json = "application/json",
+  // eslint-disable-next-line no-unused-vars
   FormData = "multipart/form-data",
+  // eslint-disable-next-line no-unused-vars
   UrlEncoded = "application/x-www-form-urlencoded",
+  // eslint-disable-next-line no-unused-vars
   Text = "text/plain",
 }
 
@@ -119,6 +123,7 @@ export class HttpClient<SecurityDataType = unknown> {
     }, new FormData());
   }
 
+  // eslint-disable-next-line no-unused-vars
   public request = async <T = any, E = any>({
     secure,
     path,

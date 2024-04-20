@@ -16,8 +16,17 @@ const InbestFooter = () => {
         <img src={ElementorBottomShape as any} alt="Elementor Bottom Shape" />
       )}
       <FooterContainer>
-        <Typography variant="body2" textAlign="center">
-          Copyright © {new Date().getFullYear()}. Kernius Survila.
+        <Typography
+          variant="body2"
+          textAlign="center"
+          onClick={() =>
+            window.open("https://github.com/KerniusSur/Inbestai-Task", "_blank")
+          }
+          sx={{
+            cursor: "pointer",
+          }}
+        >
+          Kernius Survila {new Date().getFullYear()}
         </Typography>
         <Box
           sx={{

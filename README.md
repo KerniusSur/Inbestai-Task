@@ -85,12 +85,37 @@ The application has *two* main routes:
 
 ### Features
 
-1. **Submit UK Postcode**: Users can input a UK postcode into the application.
-2. **Retrieve Postcode Information**: The app fetches information from the postcodes.io API using the provided postcode.
-3. **Display Information**: Details including country, longitude, latitude, and administrative district are presented to the user.
-4. **View Postcode History**: The app keeps track of submitted postcodes for reference.
-5. **Select Postcode from History**: Users can select a postcode from the history list to view its details.
-6. **Remove Postcode from History**: Users have the option to delete a postcode from the history list.
+#### 1. **Submit UK Postcode**: Users can input a UK postcode into the application
+
+#### 2. **Retrieve Postcode Information**: The app fetches information from the postcodes.io API using the provided postcode
+
+#### 3. **Postcode Suggestions**: The application suggests postcodes if the user enters an incorrect or incomplete postcode
+
+```plaintext
+  For example, if the user enters "G3 7H", the application will suggest 10 postcodes starting with "G3 7H", such as:
+    1. "G3 7HA",
+    2. "G3 7HB",
+    3. "G3 7HD"
+    etc. 
+  ```
+
+#### 4. **Display Information**: Details including country, longitude, latitude, and administrative district are presented to the user
+
+#### 5. **View Postcode History**: The app keeps track of submitted postcodes for reference
+
+#### 6. **Select Postcode from History**: Users can select a postcode from the history list to view its details
+
+#### 7. **Remove Postcode from History**: Users have the option to delete a postcode from the history list
+
+#### 8. **Toast Notifications**: Toast notifications are displayed to the user when a postcode is added or removed from the history list
+
+#### 9. **404 Error Page**: A custom 404 error page is displayed when a route is not found
+
+#### 10. **Contact Form**: Users can fill out a contact form to get in touch with the application owner
+
+*(Note: The contact form is not functional)*
+
+#### 11. **Responsive Design**: The application is designed to be responsive and work on various screen sizes
 
 ### Main Libraries Used
 
@@ -144,11 +169,11 @@ The application uses Redux for state management. The store is described and conf
 The project includes the following scripts:
 
 ```bash
-  npm run dev    # Start the development server
+  npm start      # Start the development server)
 ```
 
 ```bash
-  npm start      # Start the development server (alternative to 'dev')
+  npm run dev    # Start the development server (alternative command to `npm start`)
 ```
 
 ```bash
@@ -169,8 +194,6 @@ The project includes the following scripts:
 
 ## Other Information
 
-<!-- ### Things I would have done differently -->
-<!-- ### Things I would have liked to add -->
 ### Things I believe are important to mention
 
 #### 1. **API configuration**
