@@ -1,4 +1,4 @@
-import PostCodeContent from "models/postcode/PostCodeContent";
+import PostCodeContent from "../models/postcode/PostCodeContent";
 import { store } from "./configureStore";
 import {
   addPostCode,

@@ -2,7 +2,7 @@ import { Property } from "csstype";
 import { CSSProperties, useEffect } from "react";
 import InbestWidgetIcon1 from "../assets/inbest-widget-1.svg";
 import InbestWidgetIcon2 from "../assets/inbest-widget-2.svg";
-import "../styles/WidgetStyles.css";
+import "../styles/widgetstyles.css";
 import throttle from "../utils/throttle";
 
 interface InbestBackgroundInteractiveWidgetProps {
